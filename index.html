@@ -39,7 +39,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 <section style="position: relative; height: 100vh; min-height: 680px; background: {{introBg}}; transition: background-color .5s ease .9s; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px; padding: 40px 20px; box-sizing: border-box">
 <button type="button" onClick="{{skipIntro}}" style="position: absolute; top: 18px; right: 18px; min-height: 44px; padding: 0 14px; background: transparent; border: 0; color: #D5E3E4; font-family: inherit; font-weight: 600; font-size: 15px; cursor: pointer; z-index: 3">Pomiń</button>
 
-<div style="position: relative; width: 100%; max-width: 1100px; height: clamp(130px, 17vw, 230px); opacity: {{textOpacity}}; transition: opacity .4s ease">
+<div style="position: relative; width: 100%; max-width: 1100px; height: clamp(130px, 17vw, 230px); opacity: {{textOpacity}}; transition: opacity .25s ease">
 <div aria-hidden="true" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 0.28em; font-weight: 900; font-size: clamp(56px, 10vw, 170px); line-height: 0.85; letter-spacing: -0.05em; color: #FFFFFF; opacity: {{pukO}}; transform: {{pukT}}; transition: opacity .35s ease, transform .45s ease">
 <span style="display: inline-block; opacity: {{puk1o}}; transform: {{puk1t}}; transition: opacity .12s ease, transform .4s cubic-bezier(.2,1.6,.4,1)">PUK</span>
 <span style="display: inline-block; opacity: {{puk2o}}; transform: {{puk2t}}; transition: opacity .12s ease, transform .4s cubic-bezier(.2,1.6,.4,1)">PUK</span>
@@ -52,9 +52,9 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 </div>
 
 <div style="position: relative; animation: fz-up .8s .1s both">
-<div style="position: relative; transform-origin: 50% 50%; transform: {{doorScale}}; opacity: {{doorO}}; transition: transform 1.5s cubic-bezier(.7,0,.35,1), opacity .7s ease .8s">
+<div style="position: relative; transform-origin: 50% 50%; transform: {{doorScale}}; opacity: {{doorO}}; transition: transform 1.05s cubic-bezier(.6,0,.4,1), opacity .45s ease .6s">
 <div style="position: relative; width: min(26vh, 200px, 50vw); height: min(46vh, 370px); background: #FFB547; border-radius: 3px; box-shadow: 0 0 0 6px #184047; perspective: 1400px">
-<button type="button" onClick="{{openNow}}" aria-label="Otwórz drzwi" style="position: absolute; inset: -1px; margin: 0; padding: 0; border: 0; background: #0C262C; border-radius: 3px; cursor: pointer; transform-origin: left center; transform: {{leafTransform}}; transition: transform 1.3s cubic-bezier(.65,0,.25,1); animation: {{knock}}">
+<button type="button" onClick="{{openNow}}" aria-label="Otwórz drzwi" style="position: absolute; inset: -1px; margin: 0; padding: 0; border: 0; background: #0C262C; border-radius: 3px; cursor: pointer; transform-origin: left center; transform: {{leafTransform}}; transition: transform .8s cubic-bezier(.6,0,.3,1); animation: {{knock}}">
 <span aria-hidden="true" style="position: absolute; left: 33%; top: 7%; bottom: 7%; width: 2px; background: #12343B"></span>
 <span aria-hidden="true" style="position: absolute; left: 50%; top: 7%; bottom: 7%; width: 2px; background: #12343B"></span>
 <span aria-hidden="true" style="position: absolute; left: 67%; top: 7%; bottom: 7%; width: 2px; background: #12343B"></span>
@@ -62,7 +62,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 </button>
 </div>
 <span aria-hidden="true" style="position: absolute; left: calc(100% + 18px); top: 22%; font-weight: 800; font-size: 20px; color: #FFFFFF; letter-spacing: -0.02em">12</span>
-<span aria-hidden="true" style="position: absolute; left: -30%; right: -30%; top: 100%; height: 64px; background: #FFB547; opacity: {{spill}}; clip-path: polygon(28% 0, 72% 0, 100% 100%, 0 100%); transition: opacity .9s ease .3s"></span>
+<span aria-hidden="true" style="position: absolute; left: -30%; right: -30%; top: 100%; height: 64px; background: #FFB547; opacity: {{spill}}; clip-path: polygon(28% 0, 72% 0, 100% 100%, 0 100%); transition: opacity .5s ease .15s"></span>
 <span aria-hidden="true" style="position: absolute; left: -60%; right: -60%; top: calc(100% + 3px); height: 1px; background: #2F5A62"></span>
 </div>
 </div>
@@ -73,7 +73,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 <section style="position: relative; background: #12343B; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column">
 <!-- film z drona: tu wejdzie prawdziwe nagranie -->
 <div id="fz-film" style="position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #2A3B3E">
-<video id="fz-video" class="fz-video" poster="hero.jpg" data-src="hero.mp4" data-src-m="hero-m.mp4" muted autoplay loop playsinline preload="auto" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
+<video id="fz-video" class="fz-video" poster="hero.jpg" data-src="hero.mp4" data-src-m="hero-m.mp4" muted loop playsinline preload="auto" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
 </div>
 <div aria-hidden="true" style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(12,38,44,.45) 0%, rgba(12,38,44,0) 18%, rgba(12,38,44,0) 38%, rgba(12,38,44,.72) 68%, rgba(12,38,44,.94) 100%)"></div>
 <div style="position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; padding: 0 24px calc(40px + env(safe-area-inset-bottom, 0px))">
@@ -582,7 +582,7 @@ class Component extends DCLogic {
     var self = this;
     (this._ts || []).forEach(function (t) { clearTimeout(t); });
     this._ts = [];
-    var plan = [[1, 600], [2, 900], [3, 1200], [4, 1850], [5, 2600], [6, 3450], [7, 4350], [8, 5600]];
+    var plan = [[1, 450], [2, 700], [3, 950], [4, 1400], [5, 1950], [6, 2500], [7, 3250], [8, 4300]];
     var base = from === 0 ? 0 : plan[from - 1][1];
     plan.forEach(function (step) {
       if (step[0] > from) self._ts.push(setTimeout(function () { if (step[0] === 8) self.finishIntro(); else self.setState({ intro: step[0] }); }, step[1] - base));
@@ -592,6 +592,7 @@ class Component extends DCLogic {
     var self = this;
     (this._ts || []).forEach(function (t) { clearTimeout(t); });
     if (this.state.intro < 8) this.setState({ intro: 8 });
+    if (window.fzStartFilm) window.fzStartFilm();
     window.scrollTo(0, 0);
     setTimeout(function () { window.scrollTo(0, 0); self._lock(false); }, 450);
   }
@@ -680,10 +681,16 @@ __boot(Component);
 </script>
 <script>
 (function(){
+  var started=false;
+  window.fzStartFilm=function(){
+    var v=document.getElementById('fz-video'); if(!v||started) return; started=true;
+    try{ v.currentTime=0; }catch(e){}
+    var p=v.play(); if(p&&p.catch) p.catch(function(){});
+  };
   var t=setInterval(function(){
     var v=document.getElementById('fz-video'); if(!v) return; clearInterval(t);
     v.src=window.innerWidth<=900 ? v.getAttribute('data-src-m') : v.getAttribute('data-src');
-    v.muted=true; var p=v.play(); if(p&&p.catch) p.catch(function(){});
+    v.muted=true; v.load();
   },100);
 })();
 </script>
