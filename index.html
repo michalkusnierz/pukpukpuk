@@ -697,7 +697,7 @@ __boot(Component);
     var f=document.createElement('iframe'); f.id='fz-yt';
     f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&enablejsapi=1&origin='+encodeURIComponent(location.origin);
     f.title='Film z inwestycji'; f.allow='autoplay; encrypted-media'; f.tabIndex=-1; f.setAttribute('aria-hidden','true');
-    f.style.cssText='position:absolute;left:50%;top:50%;border:0;pointer-events:none;z-index:1;opacity:0;transition:opacity .35s ease';
+    f.style.cssText='position:absolute;left:50%;top:50%;border:0;pointer-events:none;z-index:1;opacity:0';
     box.appendChild(f);
     function fit(){
       var w=box.clientWidth,h=box.clientHeight,k=1.45,vw,vh;
@@ -707,14 +707,10 @@ __boot(Component);
       f.style.transform='translate(calc(-50% + '+(w<700?80:0)+'px),'+(shift*100)+'%)';
     }
     fit(); window.addEventListener('resize',fit);
-    var hideT=null;
-    function show(){ clearTimeout(hideT); hideT=setTimeout(function(){f.style.opacity='1';},500); }
-    function hide(){ clearTimeout(hideT); f.style.opacity='0'; }
     window.onYouTubeIframeAPIReady=function(){
       var pl=new YT.Player('fz-yt',{events:{
-        onReady:function(){ pl.mute(); pl.playVideo();
-          setInterval(function(){ try{ var d=pl.getDuration(),t=pl.getCurrentTime(); if(d&&t>d-1.2){ hide(); pl.seekTo(0,true); } }catch(e){} },250); },
-        onStateChange:function(e){ if(e.data===1) show(); else { hide(); if(e.data===0||e.data===2){ pl.seekTo(0,true); pl.playVideo(); } } }
+        onReady:function(){ pl.mute(); pl.playVideo(); },
+        onStateChange:function(e){ if(e.data===1) f.style.opacity='1'; if(e.data===0){ pl.seekTo(0,true); pl.playVideo(); } }
       }});
     };
     var sc=document.createElement('script'); sc.src='https://www.youtube.com/iframe_api'; document.head.appendChild(sc);
