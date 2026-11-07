@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Strona inwestycji z filmem z drona dla deweloperów. Gotowa w 14 dni roboczych, od 5 000 zł netto.">
+<style>body{margin:0}</style>
+</head>
+<body>
+<title>PUKPUKPUK</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&amp;family=Barlow+Condensed:wght@700;800&amp;display=swap">
+<style>
+body{margin:0;background:#ECEEED}
+html{scroll-behavior:smooth}
+a{color:#10252A}a:hover{color:#12343B}
+input[type=checkbox]{accent-color:#10252A;width:20px;height:20px}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #10252A;outline-offset:3px}
+.fz-tab{grid-template-columns:200px minmax(0,1fr)}
+@media (max-width:640px){.fz-tab{grid-template-columns:minmax(0,1fr)}.fz-tab>div:nth-child(odd){padding-top:18px!important;font-size:18px!important}.fz-tab>div:nth-child(even):not(.fz-price){font-size:21px!important}}
+.fz-pan{animation:fz-pan 40s linear infinite alternate}
+@keyframes fz-pan{from{transform:translateX(0)}to{transform:translateX(-37.5%)}}
+@media (prefers-reduced-motion:reduce){.fz-pan{animation:none}}
+@keyframes fz-pop{from{opacity:0;transform:scale(1.35)}to{opacity:1;transform:none}}
+@keyframes fz-k1{0%,100%{translate:0 0}30%{translate:5px 0}60%{translate:-3px 0}}
+@keyframes fz-k3{0%,100%{translate:0 0}30%{translate:5px 0}60%{translate:-3px 0}}
+@keyframes fz-k2{0%,100%{translate:0 0}30%{translate:5px 0}60%{translate:-3px 0}}
+@keyframes fz-knock{0%,50%,100%{translate:0 0}12%,62%{translate:4px 0}25%,75%{translate:-3px 0}}
+@keyframes fz-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fz-stamp{0%{opacity:0;transform:rotate(-9deg) scale(1.6)}70%{opacity:1;transform:rotate(-9deg) scale(.96)}100%{opacity:1;transform:rotate(-9deg) scale(1)}}
+</style>
+<div id="app"></div>
+<template id="tpl">
+<div style="font-family: 'Schibsted Grotesk', system-ui, sans-serif; color: #10252A; background: #ECEEED; min-height: 100vh">
+
+<!-- INTRO: puk puk -->
+<sc-if value="{{introOn}}" hint-placeholder-val="{{true}}">
+<section style="position: relative; height: 100vh; min-height: 680px; background: {{introBg}}; transition: background-color .5s ease .9s; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px; padding: 40px 20px; box-sizing: border-box">
+<button type="button" onClick="{{skipIntro}}" style="position: absolute; top: 18px; right: 18px; min-height: 44px; padding: 0 14px; background: transparent; border: 0; color: #D5E3E4; font-family: inherit; font-weight: 600; font-size: 15px; cursor: pointer; z-index: 3">Pomiń</button>
+
+<div style="position: relative; width: 100%; max-width: 1100px; height: clamp(130px, 17vw, 230px); opacity: {{textOpacity}}; transition: opacity .4s ease">
+<div aria-hidden="true" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 0.28em; font-weight: 900; font-size: clamp(56px, 10vw, 170px); line-height: 0.85; letter-spacing: -0.05em; color: #FFFFFF; opacity: {{pukO}}; transform: {{pukT}}; transition: opacity .35s ease, transform .45s ease">
+<span style="display: inline-block; opacity: {{puk1o}}; transform: {{puk1t}}; transition: opacity .12s ease, transform .4s cubic-bezier(.2,1.6,.4,1)">PUK</span>
+<span style="display: inline-block; opacity: {{puk2o}}; transform: {{puk2t}}; transition: opacity .12s ease, transform .4s cubic-bezier(.2,1.6,.4,1)">PUK</span>
+<span style="display: inline-block; opacity: {{puk3o}}; transform: {{puk3t}}; transition: opacity .12s ease, transform .4s cubic-bezier(.2,1.6,.4,1)">PUK</span>
+</div>
+<h2 style="position: absolute; inset: 0; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: clamp(38px, 5.6vw, 86px); line-height: 0.98; letter-spacing: -0.04em; color: #FFFFFF">
+<span style="display: block; font-weight: 900; opacity: {{askO}}; transform: {{askT}}; transition: opacity .5s ease .1s, transform .7s cubic-bezier(.2,.8,.2,1) .1s">Chcę kupić dom.</span>
+<span style="display: block; font-weight: 400; opacity: {{ask2O}}; transform: {{ask2T}}; transition: opacity .5s ease, transform .7s cubic-bezier(.2,.8,.2,1)">Jest tam kto?</span>
+</h2>
+</div>
+
+<div style="position: relative; animation: fz-up .8s .1s both">
+<div style="position: relative; transform-origin: 50% 50%; transform: {{doorScale}}; opacity: {{doorO}}; transition: transform 1.5s cubic-bezier(.7,0,.35,1), opacity .7s ease .8s">
+<div style="position: relative; width: min(26vh, 200px, 50vw); height: min(46vh, 370px); background: #FFB547; border-radius: 3px; box-shadow: 0 0 0 6px #184047; perspective: 1400px">
+<button type="button" onClick="{{openNow}}" aria-label="Otwórz drzwi" style="position: absolute; inset: -1px; margin: 0; padding: 0; border: 0; background: #0C262C; border-radius: 3px; cursor: pointer; transform-origin: left center; transform: {{leafTransform}}; transition: transform 1.3s cubic-bezier(.65,0,.25,1); animation: {{knock}}">
+<span aria-hidden="true" style="position: absolute; left: 33%; top: 7%; bottom: 7%; width: 2px; background: #12343B"></span>
+<span aria-hidden="true" style="position: absolute; left: 50%; top: 7%; bottom: 7%; width: 2px; background: #12343B"></span>
+<span aria-hidden="true" style="position: absolute; left: 67%; top: 7%; bottom: 7%; width: 2px; background: #12343B"></span>
+<span aria-hidden="true" style="position: absolute; right: 12%; top: 33%; width: 6px; height: 34%; background: #EDEDF2; border-radius: 3px"></span>
+</button>
+</div>
+<span aria-hidden="true" style="position: absolute; left: calc(100% + 18px); top: 22%; font-weight: 800; font-size: 20px; color: #FFFFFF; letter-spacing: -0.02em">12</span>
+<span aria-hidden="true" style="position: absolute; left: -30%; right: -30%; top: 100%; height: 64px; background: #FFB547; opacity: {{spill}}; clip-path: polygon(28% 0, 72% 0, 100% 100%, 0 100%); transition: opacity .9s ease .3s"></span>
+<span aria-hidden="true" style="position: absolute; left: -60%; right: -60%; top: calc(100% + 3px); height: 1px; background: #2F5A62"></span>
+</div>
+</div>
+</section>
+</sc-if>
+
+<!-- HERO -->
+<section style="background: #12343B; overflow: hidden">
+<div style="padding: 0 24px">
+<header style="max-width: 1320px; margin: 0 auto; padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap">
+<div style="display: flex; align-items: center; gap: 12px">
+<svg width="34" height="30" viewBox="0 0 34 30" aria-hidden="true"><rect x="0" y="0" width="34" height="13" fill="#FFFFFF"></rect><rect x="0" y="17" width="15" height="13" fill="#FFFFFF"></rect><rect x="19" y="17" width="15" height="13" fill="#FFB547"></rect></svg>
+<span style="font-weight: 800; font-size: 26px; letter-spacing: -0.03em; color: #FFFFFF">PUKPUKPUK</span>
+</div>
+<a href="#kontakt" style="font-weight: 700; font-size: 16px; color: #FFFFFF">Zadzwoń: [600 000 000]</a>
+</header>
+<div style="max-width: 1320px; margin: 40px auto 0">
+<sc-if value="{{personal}}" hint-placeholder-val="{{false}}"><div style="margin-bottom: 28px; display: inline-block; background: #FFB547; color: #12343B; padding: 8px 14px; font-weight: 800; font-size: 15px">Przygotowane dla: {{invName}}</div></sc-if>
+<h1 style="animation: {{heroA}}; margin: 0; font-weight: 900; font-size: clamp(30px, 7.4vw, 116px); line-height: 0.92; letter-spacing: -0.045em; color: #FFFFFF"><span style="display: block; color: #7FA3A8">Ty budujesz domy.</span><span style="display: block">My otwieramy</span><span style="display: block">do nich <span style="color: #FFB547">drzwi</span>.</span></h1>
+<div style="animation: {{heroB}}; margin-top: 44px; display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: center; justify-content: space-between">
+<p style="margin: 0; max-width: 520px; font-size: 18px; line-height: 1.5; color: #D5E3E4">Strona inwestycji z filmem z drona.<br>Gotowa w 14 dni roboczych, od 5&nbsp;000&nbsp;zł&nbsp;netto.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center"><a href="brzozy12.html" style="font-weight: 700; font-size: 16px; color: #FFFFFF">Zobacz przykładową stronę</a><a href="#test" style="display: inline-flex; align-items: center; min-height: 58px; padding: 0 30px; background: #FFB547; color: #12343B; text-decoration: none; font-weight: 800; font-size: 17px">Sprawdź się w 30 sekund</a></div>
+</div>
+</div>
+</div>
+
+<!-- film z drona: tu wejdzie prawdziwe nagranie -->
+<div id="fz-film" data-yt="nr-NYsF3Gp8" style="animation: {{heroC}}; position: relative; margin-top: 72px; height: clamp(300px, 52vw, 720px); overflow: hidden; background: #34502F">
+<svg class="fz-pan" aria-hidden="true" width="160%" height="100%" style="position: absolute; left: 0; top: 0; display: block">
+<defs><pattern id="fz-osiedle" width="420" height="300" patternUnits="userSpaceOnUse">
+<rect width="420" height="300" fill="#34502F"></rect>
+<rect x="190" y="0" width="40" height="300" fill="#5E615C"></rect>
+<rect x="30" y="34" width="120" height="76" fill="#3C3F44"></rect><rect x="30" y="70" width="120" height="3" fill="#2B2E32"></rect>
+<rect x="270" y="64" width="120" height="76" fill="#44474C"></rect><rect x="270" y="100" width="120" height="3" fill="#2B2E32"></rect>
+<rect x="30" y="180" width="120" height="76" fill="#44474C"></rect><rect x="30" y="216" width="120" height="3" fill="#2B2E32"></rect>
+<rect x="270" y="210" width="120" height="76" fill="#3C3F44"></rect><rect x="270" y="246" width="120" height="3" fill="#2B2E32"></rect>
+<rect x="150" y="66" width="40" height="12" fill="#8A8C86"></rect><rect x="230" y="96" width="40" height="12" fill="#8A8C86"></rect>
+<circle cx="168" cy="150" r="14" fill="#25401F"></circle><circle cx="400" cy="20" r="16" fill="#25401F"></circle><circle cx="12" cy="150" r="12" fill="#2A4724"></circle><circle cx="250" cy="170" r="13" fill="#25401F"></circle>
+</pattern></defs>
+<rect width="100%" height="100%" fill="url(#fz-osiedle)"></rect>
+</svg>
+<a href="https://youtu.be/nr-NYsF3Gp8" target="_blank" rel="noopener" class="fz-play" style="position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; text-decoration: none"><span style="display: inline-flex; align-items: center; gap: 14px; background: #FFB547; color: #12343B; padding: 18px 28px; font-weight: 800; font-size: 18px"><svg width="18" height="20" viewBox="0 0 18 20" aria-hidden="true"><path d="M0 0 L18 10 L0 20 Z" fill="#12343B"></path></svg>Zobacz film z inwestycji Nova Góraszka</span></a>
+</div>
+</section>
+
+<!-- TEST -->
+<section id="test" style="background: #ECEEED">
+
+<sc-if value="{{showIntro}}" hint-placeholder-val="{{true}}">
+<div style="min-height: 100vh; padding: 96px 24px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center">
+<div style="max-width: 1320px; width: 100%; margin: 0 auto">
+<h2 style="margin: 0; max-width: 1200px; font-weight: 900; font-size: clamp(56px, 8.4vw, 140px); line-height: 0.86; letter-spacing: -0.05em">Której firmie wpłaciłbyś <span style="color: #12343B">100 000 zł</span> zaliczki?</h2>
+<div style="margin-top: 48px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center">
+<p style="margin: 0; max-width: 600px; font-size: 21px; line-height: 1.45; color: #2A3B3E">Za chwilę zobaczysz strony dwóch deweloperów. Obaj sprzedają dom 124 m² za 1 090 000 zł z oddaniem w IV kwartale 2027. Kliknij połowę ekranu z firmą, której wpłaciłbyś zaliczkę.</p>
+<button type="button" onClick="{{start}}" style="min-height: 62px; padding: 0 36px; background: #12343B; color: #FFFFFF; border: 0; font-family: inherit; font-weight: 800; font-size: 19px; cursor: pointer">Pokaż obie strony</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{showChoose}}" hint-placeholder-val="{{false}}">
+<div style="animation: fz-up .45s ease-out both">
+<div style="background: #12343B; color: #FFFFFF; min-height: 64px; padding: 12px 24px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 700; font-size: 18px">Której firmie wpłaciłbyś zaliczkę? Kliknij jej połowę.</div>
+<div style="display: flex; flex-wrap: wrap; gap: 3px; background: #12343B">
+
+<!-- strona A: Pod Brzozą -->
+<button type="button" onClick="{{pick}}" style="order: {{orderA}}; flex: 1 1 560px; min-width: 0; height: calc(100vh - 64px); min-height: 640px; margin: 0; padding: 0; border: 0; background: #FFFFFF; cursor: pointer; text-align: left; display: flex; flex-direction: column; font-family: Arial, Helvetica, sans-serif; color: #333333">
+<div style="flex: 1; min-height: 0; width: 100%; position: relative; overflow: hidden">
+<div style="background: #2E6DA4; color: #FFFFFF; font-size: 12px; padding: 8px 20px; display: flex; justify-content: space-between; gap: 12px"><span>tel. 22 000 00 00</span><span>biuro@podbrzoza.pl</span></div>
+<div style="padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #E5E5E5"><span style="font-weight: 700; font-size: 22px; color: #2E6DA4">Osiedle Pod Brzozą</span><span style="font-size: 13px; color: #666666">Strona główna &nbsp; O inwestycji &nbsp; Galeria &nbsp; Kontakt</span></div>
+<div style="height: 34%; background: #B9C2C4; position: relative; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #3E4648">wizualizacja (slider 1/6)<span style="position: absolute; left: 16px; font-size: 30px; color: #FFFFFF">‹</span><span style="position: absolute; right: 16px; font-size: 30px; color: #FFFFFF">›</span></div>
+<div style="padding: 24px 20px 8px; font-size: 26px; font-weight: 700">Witamy na stronie inwestycji</div>
+<div style="padding: 0 20px; max-width: 560px; font-size: 15px; line-height: 1.55; color: #555555">Osiedle Pod Brzozą to nowoczesna inwestycja w spokojnej, zielonej okolicy z doskonałym dojazdem do Warszawy. Domy w zabudowie bliźniaczej zostały zaprojektowane z myślą o rodzinach, które cenią komfort i bliskość natury.</div>
+<div style="padding: 16px 20px"><span style="display: inline-block; background: #2E6DA4; color: #FFFFFF; font-size: 13px; padding: 10px 18px">Czytaj więcej</span></div>
+<div style="padding: 0 20px; font-size: 15px; color: #555555">Ceny: zapytaj w biurze sprzedaży</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; background: #2B2B2B; color: #EEEEEE; font-size: 12px; line-height: 1.45; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between"><span style="max-width: 460px">Ta strona używa plików cookies w celu zapewnienia usług na najwyższym poziomie. Dalsze korzystanie oznacza zgodę.</span><span style="display: flex; gap: 8px"><span style="background: #2E6DA4; color: #FFFFFF; padding: 7px 12px">Akceptuję</span><span style="border: 1px solid #888888; padding: 6px 12px">Ustawienia</span></span></div>
+</div>
+<div style="width: 100%; flex: none; min-height: 64px; background: #ECEEED; border-top: 2px solid #10252A; display: flex; align-items: center; justify-content: center; font-family: 'Schibsted Grotesk', sans-serif; font-weight: 800; font-size: 18px; color: #10252A">Wybieram tę firmę</div>
+</button>
+
+<!-- strona B: Brzozy 12 -->
+<button type="button" onClick="{{pick}}" style="order: {{orderB}}; flex: 1 1 560px; min-width: 0; height: calc(100vh - 64px); min-height: 640px; margin: 0; padding: 0; border: 0; background: #F4F3EF; cursor: pointer; text-align: left; display: flex; flex-direction: column; font-family: 'Schibsted Grotesk', sans-serif; color: #15171A">
+<div style="flex: 1; min-height: 0; width: 100%; overflow: hidden; display: flex; flex-direction: column">
+<div style="height: 46%; flex: none; background: #2C3A3E; padding: 22px 28px 28px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between">
+<div style="display: flex; justify-content: space-between; gap: 12px; color: #F4F3EF; font-size: 13px; font-weight: 700; letter-spacing: 0.08em"><span>BRZOZY 12</span><span>ZADZWOŃ 600 000 000</span></div>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px">
+<div style="font-weight: 800; font-size: clamp(30px, 3.4vw, 52px); line-height: 0.95; letter-spacing: -0.035em; color: #F4F3EF; max-width: 420px">12 domów pod lasem w Łomiankach</div>
+<div aria-hidden="true" style="display: flex; align-items: flex-end; gap: 6px; flex: none"><div style="width: 54px; height: 54px; background: #E9E6DD"></div><div style="width: 54px; height: 68px; background: #F4F3EF"></div><div style="width: 54px; height: 54px; background: #E9E6DD"></div></div>
+</div>
+</div>
+<div style="padding: 24px 28px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px"><span style="font-size: 15px; color: #4A4D52">124 m², działka 300 m², oddanie IV kw. 2027</span><span style="font-size: 26px; font-weight: 800; letter-spacing: -0.02em">od 1 090 000 zł</span></div>
+<div style="font-size: 15px; display: flex; flex-direction: column">
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #D8D6CF; padding: 10px 0"><span style="font-weight: 700">Dom 3, 124 m²</span><span><span style="color: #2F7A3E; font-weight: 700">wolny</span>&nbsp;&nbsp;1 090 000 zł</span></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #D8D6CF; padding: 10px 0"><span style="font-weight: 700">Dom 4, 124 m²</span><span style="color: #5A5C60">rezerwacja</span></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #D8D6CF; padding: 10px 0"><span style="font-weight: 700">Dom 7, 131 m²</span><span><span style="color: #2F7A3E; font-weight: 700">wolny</span>&nbsp;&nbsp;1 140 000 zł</span></div>
+</div>
+<div style="font-size: 12px; color: #4A4D52">Ceny aktualne na dziś, historia cen przy każdym domu</div>
+<div style="align-self: flex-start; background: #15171A; color: #F4F3EF; padding: 14px 22px; font-weight: 700; font-size: 15px">Umów oglądanie domu</div>
+</div>
+</div>
+<div style="width: 100%; flex: none; min-height: 64px; background: #ECEEED; border-top: 2px solid #10252A; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: #10252A">Wybieram tę firmę</div>
+</button>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{showReveal}}" hint-placeholder-val="{{false}}">
+<div style="min-height: 100vh; padding: 96px 24px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; animation: fz-up .45s ease-out both">
+<div style="max-width: 1320px; width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 64px; align-items: flex-end">
+<div style="flex: 1 1 340px; min-width: 0">
+<div style="font-weight: 900; letter-spacing: -0.05em; font-size: clamp(140px, 20vw, 300px); line-height: 0.82; color: #12343B; font-variant-numeric: tabular-nums; white-space: nowrap">{{elapsed}} s</div>
+<div style="font-size: 18px; font-weight: 600; color: #2A3B3E; margin-top: 18px">tyle zajęła Ci decyzja</div>
+</div>
+<div style="flex: 1 1 460px; min-width: 0">
+<p style="margin: 0; font-weight: 800; font-size: clamp(28px, 3vw, 40px); line-height: 1.12; letter-spacing: -0.03em">Obu firm nie ma. Wymyśliliśmy je na potrzeby tego testu.</p>
+<p style="margin: 24px 0 0; font-size: 21px; line-height: 1.5; color: #2A3B3E">Dom, metraż, cena i termin oddania były na obu stronach identyczne, więc oceniałeś wyłącznie stronę. Kupujący ocenia Twoją inwestycję tak samo, zanim zadzwoni do biura sprzedaży.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-top: 32px">
+<a href="#kontakt" style="display: inline-flex; align-items: center; min-height: 56px; padding: 0 30px; background: #12343B; color: #FFFFFF; text-decoration: none; font-weight: 800; font-size: 17px">Sprawdźmy Twoją stronę</a>
+<button type="button" onClick="{{reset}}" style="min-height: 44px; padding: 0; background: transparent; color: #10252A; border: 0; text-decoration: underline; font-family: inherit; font-weight: 600; font-size: 16px; cursor: pointer">Zrób test jeszcze raz</button>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+</section>
+
+<!-- USTAWA: dlaczego teraz -->
+<section style="background: #12343B; color: #FFFFFF; padding: 112px 24px 120px">
+<div style="max-width: 1320px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px 72px; align-items: flex-start">
+<div style="flex: 1 1 420px; min-width: 0">
+<h2 style="margin: 0; font-weight: 900; font-size: clamp(40px, 5.4vw, 84px); line-height: 0.9; letter-spacing: -0.045em; text-wrap: balance">Od 11 lipca 2025 strona inwestycji to obowiązek</h2>
+<p style="margin: 28px 0 0; max-width: 460px; font-size: 18px; line-height: 1.5; color: #D5E3E4">Ustawa o jawności cen zmieniła stronę z wizytówki w dokument, który sprawdza UOKiK.</p>
+<div style="margin-top: 48px; border-top: 2px solid #FFB547; padding-top: 18px; max-width: 460px">
+<div style="font-weight: 900; font-size: clamp(64px, 8vw, 120px); line-height: 0.85; letter-spacing: -0.05em; color: #FFB547">10%</div>
+<div style="margin-top: 12px; font-size: 18px; line-height: 1.45">obrotu z poprzedniego roku to górna granica kary, jaką może nałożyć Prezes UOKiK za naruszenie tych przepisów.</div>
+</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column">
+<div style="border-top: 1px solid #2F5A62; padding: 20px 0; display: flex; gap: 20px"><span style="font-weight: 900; font-size: 22px; color: #FFB547; flex: none; width: 28px">1</span><span style="font-size: 19px; line-height: 1.45">Na Twojej stronie musi być cena każdego lokalu i cena za metr, z VAT, a także ceny garaży i komórek, jeśli są osobno.</span></div>
+<div style="border-top: 1px solid #2F5A62; padding: 20px 0; display: flex; gap: 20px"><span style="font-weight: 900; font-size: 22px; color: #FFB547; flex: none; width: 28px">2</span><span style="font-size: 19px; line-height: 1.45">Każda zmiana ceny zostaje na stronie z datą. Kupujący widzi całą historię.</span></div>
+<div style="border-top: 1px solid #2F5A62; padding: 20px 0; display: flex; gap: 20px"><span style="font-weight: 900; font-size: 22px; color: #FFB547; flex: none; width: 28px">3</span><span style="font-size: 19px; line-height: 1.45">Adres strony musi być w każdej reklamie i ofercie, także na banerze na ogrodzeniu.</span></div>
+<div style="border-top: 1px solid #2F5A62; border-bottom: 1px solid #2F5A62; padding: 20px 0; display: flex; gap: 20px"><span style="font-weight: 900; font-size: 22px; color: #FFB547; flex: none; width: 28px">4</span><span style="font-size: 19px; line-height: 1.45">Jeśli cena w umowie różni się od tej na stronie, kupujący może żądać korzystniejszej dla siebie.</span></div>
+<p style="margin: 20px 0 0; font-size: 14px; color: #B9CDCF">Art. 19a i 19b ustawy deweloperskiej. Każda strona od PUKPUKPUK ma tabelę cen z historią zmian w standardzie.</p>
+</div>
+</div>
+</section>
+
+<!-- PRODUKT: telefon przy przewijaniu -->
+<section id="produkt" style="position: relative; height: 420vh; background: #ECEEED">
+<div style="position: sticky; top: 0; height: 100vh; padding: 0 24px; box-sizing: border-box; display: flex; align-items: center; overflow: hidden">
+<div style="max-width: 1100px; width: 100%; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px 72px; align-items: center; justify-content: center">
+
+<div style="flex: 1 1 380px; min-width: 0; max-width: 520px; position: relative; min-height: clamp(170px, 24vw, 300px)">
+<sc-for list="{{tourSteps}}" as="t" hint-placeholder-count="4">
+<div style="position: absolute; left: 0; right: 0; top: 0; opacity: {{t.o}}; transform: {{t.tr}}; transition: opacity .45s ease, transform .6s cubic-bezier(.2,.8,.2,1)">
+<h2 style="margin: 0; font-weight: 900; font-size: clamp(34px, 5vw, 72px); line-height: 0.92; letter-spacing: -0.045em; color: #10252A">{{t.h}}</h2>
+<p style="margin: 20px 0 0; max-width: 440px; font-size: 18px; line-height: 1.5; color: #2A3B3E">{{t.p}}</p>
+</div>
+</sc-for>
+</div>
+
+<div style="flex: none; display: flex; align-items: center; gap: 22px">
+<div aria-hidden="true" style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{tourSteps}}" as="t" hint-placeholder-count="4"><span style="display: block; width: 4px; height: 34px; background: {{t.bar}}; transition: background .3s ease"></span></sc-for>
+</div>
+<div style="position: relative; height: min(610px, 62vh); aspect-ratio: 300 / 610; border: 10px solid #10252A; border-radius: 40px; overflow: hidden; background: #F4F3EF; box-sizing: border-box; font-family: 'Schibsted Grotesk', sans-serif; color: #15171A">
+
+<!-- ekran 1: lista domów -->
+<div style="position: absolute; inset: 0; opacity: {{scr0}}; transition: opacity .45s ease; display: flex; flex-direction: column">
+<div style="background: #12343B; color: #FFFFFF; padding: 16px 14px 14px"><div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em">{{invUpper}}</div><div style="margin-top: 10px; font-weight: 800; font-size: 20px; letter-spacing: -0.02em">Wolne domy</div><div style="font-size: 11px; color: #B9CDCF; margin-top: 2px">ceny aktualne na dziś</div></div>
+<div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; font-size: 13px">
+<div style="background: #FFFFFF; border: 2px solid #15171A; padding: 10px 12px; display: flex; justify-content: space-between"><span><b>Dom 3</b>, 124 m²<br><span style="font-size: 11px; color: #2F7A3E; font-weight: 700">wolny</span></span><b>1 090 000 zł</b></div>
+<div style="background: #FFFFFF; border: 1px solid #D8D6CF; padding: 10px 12px; display: flex; justify-content: space-between; color: #4A4D52"><span><b>Dom 4</b>, 124 m²<br><span style="font-size: 11px">rezerwacja</span></span><span>1 090 000 zł</span></div>
+<div style="background: #FFFFFF; border: 1px solid #D8D6CF; padding: 10px 12px; display: flex; justify-content: space-between"><span><b>Dom 7</b>, 131 m²<br><span style="font-size: 11px; color: #2F7A3E; font-weight: 700">wolny</span></span><b>1 140 000 zł</b></div>
+<div style="font-size: 11px; color: #4A4D52; text-decoration: underline">Historia cen Domu 3</div>
+</div>
+</div>
+
+<!-- ekran 2: film -->
+<div style="position: absolute; inset: 0; opacity: {{scr1}}; transition: opacity .45s ease; background: #34502F; overflow: hidden">
+<svg class="fz-pan" aria-hidden="true" width="240%" height="100%" style="position: absolute; left: 0; top: 0; display: block"><rect width="100%" height="100%" fill="url(#fz-osiedle)"></rect></svg>
+<div style="position: absolute; left: 12px; right: 12px; top: 14px; display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #FFFFFF"><span>Film z budowy</span><span>0:42 / 1:20</span></div>
+<div style="position: absolute; left: 12px; right: 12px; top: 34px; height: 3px; background: rgba(255,255,255,.3)"><div style="width: 52%; height: 100%; background: #FFB547"></div></div>
+<div style="position: absolute; left: 12px; right: 12px; bottom: 16px; background: rgba(16,37,42,.85); color: #FFFFFF; padding: 12px; font-size: 13px; line-height: 1.35"><b>12 domów pod lasem</b><br>3 minuty do stacji, 400 m do lasu</div>
+</div>
+
+<!-- ekran 3: formularz -->
+<div style="position: absolute; inset: 0; opacity: {{scr2}}; transition: opacity .45s ease; padding: 22px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px">
+<div style="font-weight: 800; font-size: 20px; letter-spacing: -0.02em">Dom 7, 131 m²</div>
+<div style="font-size: 12px; color: #4A4D52; margin-bottom: 8px">1 140 000 zł, działka 320 m²</div>
+<div style="font-size: 11px; color: #4A4D52">Imię</div>
+<div style="min-height: 38px; border: 1px solid #15171A; background: #FFFFFF; padding: 0 10px; display: flex; align-items: center; font-size: 13px">Anna</div>
+<div style="font-size: 11px; color: #4A4D52">Telefon</div>
+<div style="min-height: 38px; border: 1px solid #15171A; background: #FFFFFF; padding: 0 10px; display: flex; align-items: center; font-size: 13px">600 123 456</div>
+<div style="font-size: 11px; color: #4A4D52">Kiedy oddzwonić</div>
+<div style="min-height: 38px; border: 1px solid #15171A; background: #FFFFFF; padding: 0 10px; display: flex; align-items: center; font-size: 13px">dziś po 17</div>
+<div style="margin-top: 8px; min-height: 46px; background: #15171A; color: #F4F3EF; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">Poproś o kontakt</div>
+</div>
+
+<!-- ekran 4: SMS -->
+<div style="position: absolute; inset: 0; opacity: {{scr3}}; transition: opacity .45s ease; background: #12343B; padding: 22px 12px; box-sizing: border-box; color: #FFFFFF">
+<div style="text-align: center; font-weight: 300; font-size: 56px; letter-spacing: -0.03em; margin-top: 30px">17:06</div>
+<div style="text-align: center; font-size: 12px; color: #B9CDCF">czwartek, 12 listopada</div>
+<div style="margin-top: 36px; background: rgba(255,255,255,.94); color: #15171A; border-radius: 14px; padding: 12px 14px; transform: {{smsT}}; transition: transform .6s cubic-bezier(.2,1.4,.4,1)">
+<div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #4A4D52"><span>SMS, PUKPUKPUK</span><span>teraz</span></div>
+<div style="font-size: 14px; line-height: 1.4; margin-top: 6px">Nowe zapytanie: <b>Dom 7, 131 m²</b>. Anna, 600 123 456, dziś po 17.</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- REKLAMY -->
+<section style="background: #12343B; color: #FFFFFF; padding: 112px 24px 120px">
+<div style="max-width: 1320px; margin: 0 auto">
+<h2 style="margin: 0; max-width: 900px; font-weight: 900; font-size: clamp(40px, 5.4vw, 84px); line-height: 0.9; letter-spacing: -0.045em; text-wrap: balance">Te same pieniądze na reklamę</h2>
+<p style="margin: 24px 0 0; max-width: 560px; font-size: 18px; line-height: 1.5; color: #D5E3E4">Po lewej reklama, jaką co dzień widać na Facebooku. Po prawej klip z pakietu z dronem. Budżet na wyświetlenia jest ten sam.</p>
+
+<div style="margin-top: 64px; display: flex; flex-wrap: wrap; gap: 56px 72px; justify-content: center; align-items: flex-start">
+
+<!-- tak zwykle -->
+<div style="display: flex; flex-direction: column; align-items: center; gap: 20px">
+<div style="font-weight: 800; font-size: 20px; color: #7FA3A8">Tak zwykle</div>
+<div style="width: 300px; height: 610px; border: 10px solid #0C262C; border-radius: 40px; overflow: hidden; background: #F0F2F5; box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; color: #1C1E21; display: flex; flex-direction: column">
+<div style="background: #FFFFFF; padding: 14px 12px 10px; display: flex; gap: 8px; align-items: center">
+<div style="width: 36px; height: 36px; border-radius: 50%; background: #2E6DA4; color: #FFFFFF; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none">OPB</div>
+<div style="min-width: 0"><div style="font-size: 13px; font-weight: 700">Osiedle Pod Brzozą</div><div style="font-size: 11px; color: #65676B">Sponsorowane</div></div>
+</div>
+<div style="background: #FFFFFF; padding: 0 12px 10px; font-size: 13px; line-height: 1.4">🏡🏡 OSTATNIE LOKALE!!! 🏡🏡<br>Nowoczesne domy w spokojnej, zielonej okolicy 🌳 Doskonała lokalizacja i wysoki standard wykończenia! Nie czekaj, zadzwoń już dziś ☎️ 22 000 00 00 lub odwiedź nasze biuro sprzedaży!! 👉 #domy #nieruchomości #inwestycja</div>
+<div style="position: relative; height: 200px; background: #B9C2C4; flex: none; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: #8FA37F"></div>
+<div aria-hidden="true" style="position: absolute; left: 22%; bottom: 30%; width: 56%; height: 38%; background: #E9E6DD"></div>
+<div aria-hidden="true" style="position: absolute; left: 18%; bottom: 66%; width: 64%; height: 10%; background: #6B6E70"></div>
+<div style="position: absolute; left: 0; right: 0; top: 10px; text-align: center"><span style="display: inline-block; background: #D0021B; color: #FFFFFF; font-weight: 700; font-size: 17px; padding: 6px 12px; border: 2px solid #FFFFFF">OSTATNIE LOKALE!</span></div>
+<div style="position: absolute; right: 8px; bottom: 10px; width: 66px; height: 66px; border-radius: 50%; background: #FFE600; color: #D0021B; font-weight: 700; font-size: 12px; display: flex; align-items: center; justify-content: center; text-align: center; transform: rotate(-12deg)">SUPER<br>CENA!</div>
+<div style="position: absolute; left: 8px; bottom: 8px; background: #FFFFFF; color: #2E6DA4; font-weight: 700; font-size: 11px; padding: 4px 6px">tel. 22 000 00 00</div>
+</div>
+<div style="background: #FFFFFF; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #E4E6EB"><span style="font-size: 11px; color: #65676B">podbrzoza.pl</span><span style="background: #E4E6EB; font-size: 12px; font-weight: 700; padding: 7px 10px">Dowiedz się więcej</span></div>
+<div style="background: #FFFFFF; margin-top: 8px; padding: 10px 12px; font-size: 11px; color: #65676B">👍 3 &nbsp;&nbsp; 1 komentarz</div>
+</div>
+</div>
+
+<!-- tak z pukpukpuk -->
+<div style="display: flex; flex-direction: column; align-items: center; gap: 20px">
+<div style="font-weight: 800; font-size: 20px; color: #FFB547">Tak z PUKPUKPUK</div>
+<div style="width: 300px; height: 610px; border: 10px solid #0C262C; border-radius: 40px; overflow: hidden; background: #2F4A2C; box-sizing: border-box; position: relative; font-family: 'Schibsted Grotesk', sans-serif; color: #FFFFFF">
+<!-- widok z drona: dachy -->
+<div aria-hidden="true" style="position: absolute; inset: 0; background: #34502F">
+<div style="position: absolute; left: 47%; top: 0; bottom: 0; width: 26px; background: #5E615C"></div>
+<div style="position: absolute; left: 8%; top: 9%; width: 30%; height: 13%; background: #3C3F44"></div>
+<div style="position: absolute; left: 8%; top: 27%; width: 30%; height: 13%; background: #3C3F44"></div>
+<div style="position: absolute; left: 8%; top: 45%; width: 30%; height: 13%; background: #44474C"></div>
+<div style="position: absolute; left: 62%; top: 14%; width: 30%; height: 13%; background: #3C3F44"></div>
+<div style="position: absolute; left: 62%; top: 32%; width: 30%; height: 13%; background: #44474C"></div>
+<div style="position: absolute; left: 62%; top: 50%; width: 30%; height: 13%; background: #3C3F44"></div>
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 7%; background: #22381F"></div>
+<div style="position: absolute; left: 66%; top: 50%; width: 22%; height: 13%; border: 3px solid #FFB547; box-sizing: border-box"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 52%; background: linear-gradient(transparent, rgba(8,20,18,.92))"></div>
+</div>
+<div style="position: absolute; left: 14px; right: 14px; top: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700">
+<span>{{invDomain}}, Sponsorowane</span><span style="font-weight: 600; color: #D5E3E4">0:15</span>
+</div>
+<div style="position: absolute; left: 14px; right: 14px; top: 38px; height: 3px; background: rgba(255,255,255,.3)"><div style="width: 40%; height: 100%; background: #FFFFFF"></div></div>
+<div style="position: absolute; left: 61%; top: 44%; font-size: 12px; font-weight: 800; color: #FFB547">Dom 7, wolny</div>
+<div style="position: absolute; left: 18px; right: 18px; bottom: 24px">
+<div style="font-weight: 900; font-size: 34px; line-height: 0.95; letter-spacing: -0.04em">12 domów pod lasem w Łomiankach</div>
+<div style="margin-top: 10px; font-weight: 700; font-size: 17px; color: #FFB547">od 1 090 000 zł</div>
+<div style="margin-top: 16px; background: #FFFFFF; color: #12343B; text-align: center; padding: 12px; font-weight: 800; font-size: 14px">Zobacz wolne domy</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<p style="margin: 56px auto 0; max-width: 620px; text-align: center; font-size: 17px; line-height: 1.5; color: #D5E3E4">Pionowe klipy do reklam na Facebooku i Instagramie są w pakiecie z dronem, od 9&nbsp;000&nbsp;zł&nbsp;netto razem ze stroną.</p>
+</div>
+</section>
+
+<!-- INSTRUKCJA MONTAŻU -->
+<section style="background: #FFFFFF; padding: 112px 24px 120px">
+<div style="max-width: 1320px; margin: 0 auto">
+<div style="display: flex; flex-wrap: wrap; gap: 20px 56px; align-items: flex-end; justify-content: space-between">
+<h2 style="margin: 0; max-width: 760px; font-weight: 900; font-size: clamp(40px, 5.4vw, 84px); line-height: 0.9; letter-spacing: -0.045em">Instrukcja montażu</h2>
+<p style="margin: 0; max-width: 420px; font-size: 18px; line-height: 1.5; color: #2A3B3E">Ty dajesz rzuty, ceny i pół godziny rozmowy. Resztę składamy my.</p>
+</div>
+
+<div style="margin-top: 56px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+
+<div style="border: 2px solid #10252A; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-weight: 900; font-size: 44px; letter-spacing: -0.04em; line-height: 1">1</span><span style="font-weight: 700; font-size: 15px">dzień 1</span></div>
+<svg viewBox="0 0 200 130" width="100%" style="display: block; max-height: 150px" aria-hidden="true" fill="none" stroke="#10252A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="52" cy="40" r="13"></circle><path d="M30 120 v-38 a22 22 0 0 1 44 0 v38"></path>
+<circle cx="148" cy="40" r="13"></circle><path d="M126 120 v-38 a22 22 0 0 1 44 0 v38"></path>
+<rect x="80" y="14" width="40" height="26" rx="6" fill="#FFB547"></rect><path d="M92 40 l-6 9 l13 -9"></path>
+<circle cx="92" cy="27" r="1.5" fill="#10252A"></circle><circle cx="100" cy="27" r="1.5" fill="#10252A"></circle><circle cx="108" cy="27" r="1.5" fill="#10252A"></circle>
+<path d="M14 120 h172"></path>
+</svg>
+<div style="font-weight: 700; font-size: 17px">Rozmowa, 30 minut</div>
+</div>
+
+<div style="border: 2px solid #10252A; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-weight: 900; font-size: 44px; letter-spacing: -0.04em; line-height: 1">2</span><span style="font-weight: 700; font-size: 15px">dzień 3</span></div>
+<svg viewBox="0 0 200 130" width="100%" style="display: block; max-height: 150px" aria-hidden="true" fill="none" stroke="#10252A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<rect x="86" y="18" width="28" height="12" rx="3" fill="#FFB547"></rect><path d="M86 22 h-20 M114 22 h20"></path>
+<ellipse cx="60" cy="18" rx="12" ry="3"></ellipse><ellipse cx="140" cy="18" rx="12" ry="3"></ellipse>
+<path d="M92 34 l-22 40 M108 34 l22 40" stroke-dasharray="4 6"></path>
+<path d="M62 120 v-36 l38 -26 l38 26 v36"></path><rect x="92" y="96" width="16" height="24"></rect>
+<path d="M14 120 h172"></path>
+</svg>
+<div style="font-weight: 700; font-size: 17px">Lot dronem nad budową</div>
+</div>
+
+<div style="border: 2px solid #10252A; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-weight: 900; font-size: 44px; letter-spacing: -0.04em; line-height: 1">3</span><span style="font-weight: 700; font-size: 15px">dzień 10</span></div>
+<svg viewBox="0 0 200 130" width="100%" style="display: block; max-height: 150px" aria-hidden="true" fill="none" stroke="#10252A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<rect x="40" y="16" width="120" height="80" rx="4"></rect>
+<path d="M40 30 h120"></path><rect x="52" y="40" width="58" height="44" fill="#FFB547"></rect><path d="M120 44 h28 M120 56 h28 M120 68 h20"></path>
+<path d="M24 112 l16 -16 h120 l16 16 z"></path>
+<path d="M14 120 h172"></path>
+</svg>
+<div style="font-weight: 700; font-size: 17px">Projekt i jedna runda poprawek</div>
+</div>
+
+<div style="border: 2px solid #10252A; padding: 20px; display: flex; flex-direction: column; gap: 14px; background: #12343B; color: #FFFFFF">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-weight: 900; font-size: 44px; letter-spacing: -0.04em; line-height: 1">4</span><span style="font-weight: 700; font-size: 15px">dzień 14</span></div>
+<svg viewBox="0 0 200 130" width="100%" style="display: block; max-height: 150px" aria-hidden="true" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<rect x="66" y="8" width="68" height="112" rx="10"></rect>
+<rect x="84" y="32" width="32" height="60" fill="#FFB547" stroke="#FFB547"></rect>
+<path d="M84 32 l18 6 v60 l-18 -6 z" fill="#12343B"></path><circle cx="98" cy="66" r="1.8" fill="#FFFFFF"></circle>
+<path d="M14 120 h52 M134 120 h52"></path>
+</svg>
+<div style="font-weight: 700; font-size: 17px">Strona działa, drzwi otwarte</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- TABLICA BUDOWY -->
+<section id="oferta" style="background: #ECEEED; padding-top: 120px">
+<div style="max-width: 1320px; margin: 0 auto; padding: 0 24px 64px; display: flex; flex-wrap: wrap; gap: 24px 56px; align-items: flex-end; justify-content: space-between">
+<h2 style="margin: 0; max-width: 760px; font-weight: 900; font-size: clamp(40px, 5vw, 76px); line-height: 0.9; letter-spacing: -0.045em">Zakres i cena, jak na tablicy budowy</h2>
+<p style="margin: 0; max-width: 420px; font-size: 20px; line-height: 1.5; color: #2A3B3E">Cenę znasz przed rozmową. Osobno wyceniamy tylko rzeczy spoza zakresu.</p>
+</div>
+
+<!-- mur -->
+<div style="position: relative; padding: 96px 24px 112px; overflow: hidden">
+<svg aria-hidden="true" width="100%" height="100%" style="position: absolute; inset: 0; display: block">
+<defs><pattern id="fz-cegla" width="128" height="52" patternUnits="userSpaceOnUse">
+<rect width="128" height="52" fill="#E7E4DE"></rect>
+<rect x="0" y="0" width="61" height="23" fill="#12343B"></rect>
+<rect x="64" y="0" width="61" height="23" fill="#143E46"></rect>
+<rect x="-32" y="26" width="61" height="23" fill="#1A4A53"></rect>
+<rect x="32" y="26" width="61" height="23" fill="#21565F"></rect>
+<rect x="96" y="26" width="61" height="23" fill="#1A4A53"></rect>
+</pattern></defs>
+<rect width="100%" height="100%" fill="url(#fz-cegla)"></rect>
+</svg>
+
+<div style="position: relative; max-width: 1040px; margin: 0 auto; transform: rotate(-1.4deg)">
+<!-- trytytki -->
+<span aria-hidden="true" style="position: absolute; z-index: 2; top: -14px; left: 56px; width: 12px; height: 42px; background: #15171A; border-radius: 3px"></span>
+<span aria-hidden="true" style="position: absolute; z-index: 2; top: -14px; right: 56px; width: 12px; height: 42px; background: #15171A; border-radius: 3px"></span>
+<span aria-hidden="true" style="position: absolute; z-index: 2; bottom: -14px; left: 56px; width: 12px; height: 42px; background: #15171A; border-radius: 3px"></span>
+<span aria-hidden="true" style="position: absolute; z-index: 2; bottom: -14px; right: 56px; width: 12px; height: 42px; background: #15171A; border-radius: 3px"></span>
+
+<div style="background: #FFD400; border: 5px solid #10252A; color: #10252A; box-shadow: 0 22px 0 -6px rgba(11,14,43,.28)">
+<div style="margin: 22px 22px 0; background: #10252A; color: #FFFFFF; padding: 14px 20px; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(34px, 4.6vw, 64px); letter-spacing: 0.04em; line-height: 1">TABLICA INFORMACYJNA</div>
+<div class="fz-tab" style="padding: 16px 22px 28px; display: grid; column-gap: 18px; align-items: end; font-family: 'Barlow Condensed', sans-serif">
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Robota</div>
+<div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 30px; line-height: 1.1">STRONA INTERNETOWA INWESTYCJI</div>
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Zakres</div>
+<div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 26px; line-height: 1.15">STRONA POD TWOJĄ DOMENĄ, NAJPIERW POD TELEFON. GALERIA, MAPA OKOLICY, FORMULARZ ZE SMS-EM DO HANDLOWCA</div>
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Ceny lokali</div>
+<div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 26px; line-height: 1.15">TABELA Z CENĄ KAŻDEGO LOKALU I HISTORIĄ ZMIAN, ZGODNIE Z USTAWĄ O JAWNOŚCI CEN</div>
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Termin</div>
+<div style="padding: 16px 4px 8px; border-bottom: 2px solid #10252A">
+<div style="display: flex; flex-wrap: wrap; gap: 5px"><sc-for list="{{dayNums}}" as="n" hint-placeholder-count="14"><span style="width: 26px; height: 26px; background: #10252A; color: #FFD400; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px">{{n}}</span></sc-for></div>
+<div style="margin-top: 8px; font-weight: 700; font-size: 26px; line-height: 1.1">14 DNI ROBOCZYCH OD MATERIAŁÓW</div>
+</div>
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Cena</div>
+<div class="fz-price" style="padding: 10px 4px 2px; border-bottom: 2px solid #10252A; font-weight: 800; font-size: clamp(40px, 5vw, 64px); line-height: 1; color: #12343B">OD 5 000 ZŁ NETTO</div>
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Z dronem</div>
+<div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 26px; line-height: 1.15"><span style="font-size: 40px; color: #12343B">OD 9 000 ZŁ NETTO</span><br>NAGRANIE NA BUDOWIE, FILM 60-90 S, KLIPY PIONOWE DO REKLAM</div>
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Poza zakresem</div>
+<div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 26px; line-height: 1.15">PLIK DO DANE.GOV.PL, WYBIERARKA NA BRYLE, CRM. WYCENA OSOBNO</div>
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Gwarancja</div>
+<div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 26px; line-height: 1.15">KAŻDY DZIEŃ SPÓŹNIENIA Z MOJEJ WINY ODEJMUJĘ OD FAKTURY</div>
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Wykonawca</div>
+<div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 26px; line-height: 1.15">PUKPUKPUK, MICHAŁ [NAZWISKO]</div>
+</div>
+<div style="margin: 0 22px 22px; background: #10252A; color: #FFFFFF; padding: 12px 20px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 32px; letter-spacing: 0.03em">TELEFON DO WYKONAWCY: [600 000 000]</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PYTANIA -->
+<section style="background: #FFFFFF; padding: 104px 24px 112px">
+<div style="max-width: 1320px; margin: 0 auto">
+<h2 style="margin: 0; font-weight: 900; font-size: clamp(40px, 5.4vw, 84px); line-height: 0.9; letter-spacing: -0.045em">Zanim zadzwonisz</h2>
+<div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 0 56px">
+<div style="border-top: 2px solid #10252A; padding: 22px 0 30px"><div style="font-weight: 800; font-size: 22px; letter-spacing: -0.02em">Mam już stronę firmy.</div><p style="margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: #2A3B3E">Stawiamy stronę jednej inwestycji pod osobnym adresem albo jako podstronę. Strona firmy zostaje bez zmian.</p></div>
+<div style="border-top: 2px solid #10252A; padding: 22px 0 30px"><div style="font-weight: 800; font-size: 22px; letter-spacing: -0.02em">Kto będzie zmieniał ceny?</div><p style="margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: #2A3B3E">Ty albo Twój handlowiec, w prostej tabeli. Zmieniasz cenę, a strona sama dopisuje datę i historię.</p></div>
+<div style="border-top: 2px solid #10252A; padding: 22px 0 30px"><div style="font-weight: 800; font-size: 22px; letter-spacing: -0.02em">Nie mam jeszcze wizualizacji.</div><p style="margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: #2A3B3E">Wystarczą rzuty i plac budowy. Film z drona pokaże działkę i okolicę, a wizualizacje dołożymy, kiedy będą.</p></div>
+<div style="border-top: 2px solid #10252A; padding: 22px 0 30px"><div style="font-weight: 800; font-size: 22px; letter-spacing: -0.02em">Czy strona będzie moja?</div><p style="margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: #2A3B3E">Tak. Domena jest na Ciebie, pliki strony i film dostajesz na własność.</p></div>
+</div>
+</div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt" style="background: #ECEEED; padding: 112px 24px 120px; overflow: hidden">
+<div style="max-width: 1320px; margin: 0 auto">
+<div style="display: flex; gap: 20px; align-items: center; max-width: 640px">
+<div style="font-size: 18px; line-height: 1.45; font-weight: 500">Nazywam się Michał. Latam dronem, montuję film i projektuję stronę, więc przez całe zlecenie rozmawiasz ze mną.</div>
+</div>
+<h2 style="margin: 48px 0 0; font-weight: 900; font-size: clamp(40px, 12.4vw, 210px); line-height: 0.85; letter-spacing: -0.055em; white-space: nowrap"><a href="tel:+48600000000" style="color: #12343B; text-decoration: none">[600 000 000]</a></h2>
+<div style="margin-top: 56px; display: flex; flex-wrap: wrap; gap: 40px 64px; align-items: flex-start">
+<p style="flex: 1 1 380px; min-width: 0; margin: 0; max-width: 520px; font-size: 22px; line-height: 1.45; font-weight: 600; color: #10252A">Zadzwoń albo zostaw numer. W ciągu dnia powiem Ci, co poprawiłbym na stronie Twojej inwestycji.</p>
+<div style="flex: 1 1 380px; min-width: 0">
+<sc-if value="{{showForm}}" hint-placeholder-val="{{true}}">
+<form onSubmit="{{submit}}" style="background: #FFFFFF; border: 2px solid #10252A; padding: 32px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="fz-www" style="font-weight: 700; font-size: 15px">Adres strony inwestycji</label><input id="fz-www" required placeholder="np. brzozy12.pl" style="min-height: 52px; padding: 0 16px; border: 2px solid #10252A; background: #FFFFFF; font-family: inherit; font-size: 17px; color: #10252A"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="fz-tel" style="font-weight: 700; font-size: 15px">Telefon</label><input id="fz-tel" type="tel" required style="min-height: 52px; padding: 0 16px; border: 2px solid #10252A; background: #FFFFFF; font-family: inherit; font-size: 17px; color: #10252A"></div>
+<div style="display: flex; gap: 12px; align-items: flex-start"><input id="fz-zgoda" type="checkbox" required style="margin-top: 3px; flex: none"><label for="fz-zgoda" style="font-size: 14px; line-height: 1.45">Zgadzam się na kontakt telefoniczny od PUKPUKPUK w sprawie mojej strony.</label></div>
+<button type="submit" style="min-height: 58px; background: #12343B; color: #FFFFFF; border: 0; font-family: inherit; font-weight: 800; font-size: 18px; cursor: pointer">Oddzwońcie do mnie</button>
+</form>
+</sc-if>
+<sc-if value="{{showSent}}" hint-placeholder-val="{{false}}">
+<div style="background: #FFFFFF; border: 2px solid #10252A; padding: 36px; font-size: 26px; line-height: 1.3; font-weight: 800; letter-spacing: -0.02em">Mam Twój numer. Oddzwonię w ciągu dnia roboczego.</div>
+</sc-if>
+</div>
+</div>
+</div>
+</section>
+
+<footer style="background: #0C262C; color: #B9CDCF">
+<div style="max-width: 1320px; margin: 0 auto; padding: 36px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 14px; font-weight: 500">
+<span>PUKPUKPUK, pukpukpuk.pl, Warszawa</span>
+<span>Polityka prywatności</span>
+</div>
+</footer>
+
+</div>
+</template>
+<script>(function(global,factory){typeof exports==="object"&&typeof module!=="undefined"?module.exports=factory():typeof define==="function"&&define.amd?define(factory):(global=global||self,global.morphdom=factory())})(this,function(){"use strict";var DOCUMENT_FRAGMENT_NODE=11;function morphAttrs(fromNode,toNode){var toNodeAttrs=toNode.attributes;var attr;var attrName;var attrNamespaceURI;var attrValue;var fromValue;if(toNode.nodeType===DOCUMENT_FRAGMENT_NODE||fromNode.nodeType===DOCUMENT_FRAGMENT_NODE){return}for(var i=toNodeAttrs.length-1;i>=0;i--){attr=toNodeAttrs[i];attrName=attr.name;attrNamespaceURI=attr.namespaceURI;attrValue=attr.value;if(attrNamespaceURI){attrName=attr.localName||attrName;fromValue=fromNode.getAttributeNS(attrNamespaceURI,attrName);if(fromValue!==attrValue){if(attr.prefix==="xmlns"){attrName=attr.name}fromNode.setAttributeNS(attrNamespaceURI,attrName,attrValue)}}else{fromValue=fromNode.getAttribute(attrName);if(fromValue!==attrValue){fromNode.setAttribute(attrName,attrValue)}}}var fromNodeAttrs=fromNode.attributes;for(var d=fromNodeAttrs.length-1;d>=0;d--){attr=fromNodeAttrs[d];attrName=attr.name;attrNamespaceURI=attr.namespaceURI;if(attrNamespaceURI){attrName=attr.localName||attrName;if(!toNode.hasAttributeNS(attrNamespaceURI,attrName)){fromNode.removeAttributeNS(attrNamespaceURI,attrName)}}else{if(!toNode.hasAttribute(attrName)){fromNode.removeAttribute(attrName)}}}}var range;var NS_XHTML="http://www.w3.org/1999/xhtml";var doc=typeof document==="undefined"?undefined:document;var HAS_TEMPLATE_SUPPORT=!!doc&&"content"in doc.createElement("template");var HAS_RANGE_SUPPORT=!!doc&&doc.createRange&&"createContextualFragment"in doc.createRange();function createFragmentFromTemplate(str){var template=doc.createElement("template");template.innerHTML=str;return template.content.childNodes[0]}function createFragmentFromRange(str){if(!range){range=doc.createRange();range.selectNode(doc.body)}var fragment=range.createContextualFragment(str);return fragment.childNodes[0]}function createFragmentFromWrap(str){var fragment=doc.createElement("body");fragment.innerHTML=str;return fragment.childNodes[0]}function toElement(str){str=str.trim();if(HAS_TEMPLATE_SUPPORT){return createFragmentFromTemplate(str)}else if(HAS_RANGE_SUPPORT){return createFragmentFromRange(str)}return createFragmentFromWrap(str)}function compareNodeNames(fromEl,toEl){var fromNodeName=fromEl.nodeName;var toNodeName=toEl.nodeName;var fromCodeStart,toCodeStart;if(fromNodeName===toNodeName){return true}fromCodeStart=fromNodeName.charCodeAt(0);toCodeStart=toNodeName.charCodeAt(0);if(fromCodeStart<=90&&toCodeStart>=97){return fromNodeName===toNodeName.toUpperCase()}else if(toCodeStart<=90&&fromCodeStart>=97){return toNodeName===fromNodeName.toUpperCase()}else{return false}}function createElementNS(name,namespaceURI){return!namespaceURI||namespaceURI===NS_XHTML?doc.createElement(name):doc.createElementNS(namespaceURI,name)}function moveChildren(fromEl,toEl){var curChild=fromEl.firstChild;while(curChild){var nextChild=curChild.nextSibling;toEl.appendChild(curChild);curChild=nextChild}return toEl}function syncBooleanAttrProp(fromEl,toEl,name){if(fromEl[name]!==toEl[name]){fromEl[name]=toEl[name];if(fromEl[name]){fromEl.setAttribute(name,"")}else{fromEl.removeAttribute(name)}}}var specialElHandlers={OPTION:function(fromEl,toEl){var parentNode=fromEl.parentNode;if(parentNode){var parentName=parentNode.nodeName.toUpperCase();if(parentName==="OPTGROUP"){parentNode=parentNode.parentNode;parentName=parentNode&&parentNode.nodeName.toUpperCase()}if(parentName==="SELECT"&&!parentNode.hasAttribute("multiple")){if(fromEl.hasAttribute("selected")&&!toEl.selected){fromEl.setAttribute("selected","selected");fromEl.removeAttribute("selected")}parentNode.selectedIndex=-1}}syncBooleanAttrProp(fromEl,toEl,"selected")},INPUT:function(fromEl,toEl){syncBooleanAttrProp(fromEl,toEl,"checked");syncBooleanAttrProp(fromEl,toEl,"disabled");if(fromEl.value!==toEl.value){fromEl.value=toEl.value}if(!toEl.hasAttribute("value")){fromEl.removeAttribute("value")}},TEXTAREA:function(fromEl,toEl){var newValue=toEl.value;if(fromEl.value!==newValue){fromEl.value=newValue}var firstChild=fromEl.firstChild;if(firstChild){var oldValue=firstChild.nodeValue;if(oldValue==newValue||!newValue&&oldValue==fromEl.placeholder){return}firstChild.nodeValue=newValue}},SELECT:function(fromEl,toEl){if(!toEl.hasAttribute("multiple")){var selectedIndex=-1;var i=0;var curChild=fromEl.firstChild;var optgroup;var nodeName;while(curChild){nodeName=curChild.nodeName&&curChild.nodeName.toUpperCase();if(nodeName==="OPTGROUP"){optgroup=curChild;curChild=optgroup.firstChild}else{if(nodeName==="OPTION"){if(curChild.hasAttribute("selected")){selectedIndex=i;break}i++}curChild=curChild.nextSibling;if(!curChild&&optgroup){curChild=optgroup.nextSibling;optgroup=null}}}fromEl.selectedIndex=selectedIndex}}};var ELEMENT_NODE=1;var DOCUMENT_FRAGMENT_NODE$1=11;var TEXT_NODE=3;var COMMENT_NODE=8;function noop(){}function defaultGetNodeKey(node){if(node){return node.getAttribute&&node.getAttribute("id")||node.id}}function morphdomFactory(morphAttrs){return function morphdom(fromNode,toNode,options){if(!options){options={}}if(typeof toNode==="string"){if(fromNode.nodeName==="#document"||fromNode.nodeName==="HTML"||fromNode.nodeName==="BODY"){var toNodeHtml=toNode;toNode=doc.createElement("html");toNode.innerHTML=toNodeHtml}else{toNode=toElement(toNode)}}else if(toNode.nodeType===DOCUMENT_FRAGMENT_NODE$1){toNode=toNode.firstElementChild}var getNodeKey=options.getNodeKey||defaultGetNodeKey;var onBeforeNodeAdded=options.onBeforeNodeAdded||noop;var onNodeAdded=options.onNodeAdded||noop;var onBeforeElUpdated=options.onBeforeElUpdated||noop;var onElUpdated=options.onElUpdated||noop;var onBeforeNodeDiscarded=options.onBeforeNodeDiscarded||noop;var onNodeDiscarded=options.onNodeDiscarded||noop;var onBeforeElChildrenUpdated=options.onBeforeElChildrenUpdated||noop;var skipFromChildren=options.skipFromChildren||noop;var addChild=options.addChild||function(parent,child){return parent.appendChild(child)};var childrenOnly=options.childrenOnly===true;var fromNodesLookup=Object.create(null);var keyedRemovalList=[];function addKeyedRemoval(key){keyedRemovalList.push(key)}function walkDiscardedChildNodes(node,skipKeyedNodes){if(node.nodeType===ELEMENT_NODE){var curChild=node.firstChild;while(curChild){var key=undefined;if(skipKeyedNodes&&(key=getNodeKey(curChild))){addKeyedRemoval(key)}else{onNodeDiscarded(curChild);if(curChild.firstChild){walkDiscardedChildNodes(curChild,skipKeyedNodes)}}curChild=curChild.nextSibling}}}function removeNode(node,parentNode,skipKeyedNodes){if(onBeforeNodeDiscarded(node)===false){return}if(parentNode){parentNode.removeChild(node)}onNodeDiscarded(node);walkDiscardedChildNodes(node,skipKeyedNodes)}function indexTree(node){if(node.nodeType===ELEMENT_NODE||node.nodeType===DOCUMENT_FRAGMENT_NODE$1){var curChild=node.firstChild;while(curChild){var key=getNodeKey(curChild);if(key){fromNodesLookup[key]=curChild}indexTree(curChild);curChild=curChild.nextSibling}}}indexTree(fromNode);function handleNodeAdded(el){onNodeAdded(el);var curChild=el.firstChild;while(curChild){var nextSibling=curChild.nextSibling;var key=getNodeKey(curChild);if(key){var unmatchedFromEl=fromNodesLookup[key];if(unmatchedFromEl&&compareNodeNames(curChild,unmatchedFromEl)){curChild.parentNode.replaceChild(unmatchedFromEl,curChild);morphEl(unmatchedFromEl,curChild)}else{handleNodeAdded(curChild)}}else{handleNodeAdded(curChild)}curChild=nextSibling}}function cleanupFromEl(fromEl,curFromNodeChild,curFromNodeKey){while(curFromNodeChild){var fromNextSibling=curFromNodeChild.nextSibling;if(curFromNodeKey=getNodeKey(curFromNodeChild)){addKeyedRemoval(curFromNodeKey)}else{removeNode(curFromNodeChild,fromEl,true)}curFromNodeChild=fromNextSibling}}function morphEl(fromEl,toEl,childrenOnly){var toElKey=getNodeKey(toEl);if(toElKey){delete fromNodesLookup[toElKey]}if(!childrenOnly){var beforeUpdateResult=onBeforeElUpdated(fromEl,toEl);if(beforeUpdateResult===false){return}else if(beforeUpdateResult instanceof HTMLElement){fromEl=beforeUpdateResult;indexTree(fromEl)}morphAttrs(fromEl,toEl);onElUpdated(fromEl);if(onBeforeElChildrenUpdated(fromEl,toEl)===false){return}}if(fromEl.nodeName!=="TEXTAREA"){morphChildren(fromEl,toEl)}else{specialElHandlers.TEXTAREA(fromEl,toEl)}}function morphChildren(fromEl,toEl){var skipFrom=skipFromChildren(fromEl,toEl);var curToNodeChild=toEl.firstChild;var curFromNodeChild=fromEl.firstChild;var curToNodeKey;var curFromNodeKey;var fromNextSibling;var toNextSibling;var matchingFromEl;outer:while(curToNodeChild){toNextSibling=curToNodeChild.nextSibling;curToNodeKey=getNodeKey(curToNodeChild);while(!skipFrom&&curFromNodeChild){fromNextSibling=curFromNodeChild.nextSibling;if(curToNodeChild.isSameNode&&curToNodeChild.isSameNode(curFromNodeChild)){curToNodeChild=toNextSibling;curFromNodeChild=fromNextSibling;continue outer}curFromNodeKey=getNodeKey(curFromNodeChild);var curFromNodeType=curFromNodeChild.nodeType;var isCompatible=undefined;if(curFromNodeType===curToNodeChild.nodeType){if(curFromNodeType===ELEMENT_NODE){if(curToNodeKey){if(curToNodeKey!==curFromNodeKey){if(matchingFromEl=fromNodesLookup[curToNodeKey]){if(fromNextSibling===matchingFromEl){isCompatible=false}else{fromEl.insertBefore(matchingFromEl,curFromNodeChild);if(curFromNodeKey){addKeyedRemoval(curFromNodeKey)}else{removeNode(curFromNodeChild,fromEl,true)}curFromNodeChild=matchingFromEl;curFromNodeKey=getNodeKey(curFromNodeChild)}}else{isCompatible=false}}}else if(curFromNodeKey){isCompatible=false}isCompatible=isCompatible!==false&&compareNodeNames(curFromNodeChild,curToNodeChild);if(isCompatible){morphEl(curFromNodeChild,curToNodeChild)}}else if(curFromNodeType===TEXT_NODE||curFromNodeType==COMMENT_NODE){isCompatible=true;if(curFromNodeChild.nodeValue!==curToNodeChild.nodeValue){curFromNodeChild.nodeValue=curToNodeChild.nodeValue}}}if(isCompatible){curToNodeChild=toNextSibling;curFromNodeChild=fromNextSibling;continue outer}if(curFromNodeKey){addKeyedRemoval(curFromNodeKey)}else{removeNode(curFromNodeChild,fromEl,true)}curFromNodeChild=fromNextSibling}if(curToNodeKey&&(matchingFromEl=fromNodesLookup[curToNodeKey])&&compareNodeNames(matchingFromEl,curToNodeChild)){if(!skipFrom){addChild(fromEl,matchingFromEl)}morphEl(matchingFromEl,curToNodeChild)}else{var onBeforeNodeAddedResult=onBeforeNodeAdded(curToNodeChild);if(onBeforeNodeAddedResult!==false){if(onBeforeNodeAddedResult){curToNodeChild=onBeforeNodeAddedResult}if(curToNodeChild.actualize){curToNodeChild=curToNodeChild.actualize(fromEl.ownerDocument||doc)}addChild(fromEl,curToNodeChild);handleNodeAdded(curToNodeChild)}}curToNodeChild=toNextSibling;curFromNodeChild=fromNextSibling}cleanupFromEl(fromEl,curFromNodeChild,curFromNodeKey);var specialElHandler=specialElHandlers[fromEl.nodeName];if(specialElHandler){specialElHandler(fromEl,toEl)}}var morphedNode=fromNode;var morphedNodeType=morphedNode.nodeType;var toNodeType=toNode.nodeType;if(!childrenOnly){if(morphedNodeType===ELEMENT_NODE){if(toNodeType===ELEMENT_NODE){if(!compareNodeNames(fromNode,toNode)){onNodeDiscarded(fromNode);morphedNode=moveChildren(fromNode,createElementNS(toNode.nodeName,toNode.namespaceURI))}}else{morphedNode=toNode}}else if(morphedNodeType===TEXT_NODE||morphedNodeType===COMMENT_NODE){if(toNodeType===morphedNodeType){if(morphedNode.nodeValue!==toNode.nodeValue){morphedNode.nodeValue=toNode.nodeValue}return morphedNode}else{morphedNode=toNode}}}if(morphedNode===toNode){onNodeDiscarded(fromNode)}else{if(toNode.isSameNode&&toNode.isSameNode(morphedNode)){return}morphEl(morphedNode,toNode,childrenOnly);if(keyedRemovalList){for(var i=0,len=keyedRemovalList.length;i<len;i++){var elToRemove=fromNodesLookup[keyedRemovalList[i]];if(elToRemove){removeNode(elToRemove,elToRemove.parentNode,false)}}}}if(!childrenOnly&&morphedNode!==fromNode&&fromNode.parentNode){if(morphedNode.actualize){morphedNode=morphedNode.actualize(fromNode.ownerDocument||doc)}fromNode.parentNode.replaceChild(morphedNode,fromNode)}return morphedNode}}var morphdom=morphdomFactory(morphAttrs);return morphdom});</script>
+<script>
+(function(){
+var app=document.getElementById('app'), tpl=document.getElementById('tpl'), comp, vals={}, mounted=false;
+function look(expr,ctx){var p=expr.split('.'),v=(p[0] in ctx)?ctx[p[0]]:vals[p[0]];for(var i=1;i<p.length&&v!=null;i++)v=v[p[i]];return v;}
+function hole(s){var m=/^\{\{([\w.]+)\}\}$/.exec((s||'').trim());return m?m[1]:null;}
+function fill(s,ctx){return s.replace(/\{\{([\w.]+)\}\}/g,function(_,k){var v=look(k,ctx);return v==null?'':String(v);});}
+function build(node,ctx,out){
+  if(node.nodeType===3){out.appendChild(document.createTextNode(fill(node.nodeValue,ctx)));return;}
+  if(node.nodeType!==1)return;
+  var t=node.tagName.toLowerCase();
+  if(t==='sc-if'){var v=look(hole(node.getAttribute('value')),ctx);if(v===true||v==='true'||(v&&v!=='false'))kids(node,ctx,out);return;}
+  if(t==='sc-for'){var list=look(hole(node.getAttribute('list')),ctx)||[],as=node.getAttribute('as');list.forEach(function(it){var c=Object.assign({},ctx);c[as]=it;kids(node,c,out);});return;}
+  var el=node.namespaceURI==='http://www.w3.org/2000/svg'?document.createElementNS(node.namespaceURI,node.tagName):document.createElement(t);
+  for(var i=0;i<node.attributes.length;i++){var a=node.attributes[i],n=a.name;
+    if(/^on/.test(n)){el.setAttribute('data-ev-'+n.slice(2),hole(a.value));continue;}
+    el.setAttribute(n,fill(a.value,ctx));}
+  kids(node,ctx,el);out.appendChild(el);
+}
+function kids(node,ctx,out){var c=(node.content||node).childNodes;for(var i=0;i<c.length;i++)build(c[i],ctx,out);}
+function render(){
+  vals=comp.renderVals();
+  var next=document.createElement('div');kids(tpl,{},next);
+  morphdom(app,next,{childrenOnly:true,onBeforeElUpdated:function(f){return f.tagName!=='INPUT';},onBeforeNodeDiscarded:function(n){return n.nodeName!=='IFRAME';}});
+}
+['click','submit'].forEach(function(ev){app.addEventListener(ev,function(e){
+  var el=e.target.closest('[data-ev-'+ev+']');if(!el||!app.contains(el))return;
+  var fn=vals[el.getAttribute('data-ev-'+ev)];if(typeof fn==='function')fn(e);});});
+window.DCLogic=function(props){this.props=props||{};this.state={};};
+DCLogic.prototype.setState=function(o){Object.assign(this.state,typeof o==='function'?o(this.state):o);if(mounted)render();};
+window.__boot=function(C){comp=new C({});render();mounted=true;if(comp.componentDidMount)comp.componentDidMount();};
+})();
+</script>
+<script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var slug = '';
+    try {
+      var q = new URLSearchParams(window.location.search).get('dla');
+      var h = (window.location.hash || '').replace('#', '');
+      if (q) slug = q; else if (h.indexOf('dla-') === 0) slug = h.slice(4);
+    } catch (e) {}
+    slug = String(slug).toLowerCase().replace(/[^a-z0-9ąćęłńóśźż-]/g, '').slice(0, 60);
+    var name = slug ? slug.split('-').filter(Boolean).map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ') : '';
+    this.state = { phase: 'intro', t0: 0, elapsed: '0', flip: false, sent: false, intro: 0, tour: 0, inv: name };
+  }
+  componentDidMount() {
+    var self = this;
+    this._ts = [];
+    this.run(0);
+    this._onScroll = function () {
+      var el = document.getElementById('produkt');
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      var p = -r.top / Math.max(1, r.height - window.innerHeight);
+      var i = Math.max(0, Math.min(3, Math.floor(p * 4)));
+      if (i !== self.state.tour) self.setState({ tour: i });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  run(from) {
+    var self = this;
+    (this._ts || []).forEach(function (t) { clearTimeout(t); });
+    this._ts = [];
+    var plan = [[1, 600], [2, 900], [3, 1200], [4, 1850], [5, 2600], [6, 3450], [7, 4350], [8, 5600]];
+    var base = from === 0 ? 0 : plan[from - 1][1];
+    plan.forEach(function (step) {
+      if (step[0] > from) self._ts.push(setTimeout(function () { self.setState({ intro: step[0] }); }, step[1] - base));
+    });
+  }
+  open() {
+    if (this.state.intro >= 6) return;
+    this.setState({ intro: 6 });
+    this.run(6);
+  }
+  componentWillUnmount() {
+    (this._ts || []).forEach(function (t) { clearTimeout(t); });
+    window.removeEventListener('scroll', this._onScroll);
+  }
+  renderVals() {
+    var s = this.state;
+    var self = this;
+    var dayNums = [];
+    for (var d = 1; d <= 14; d++) dayNums.push(String(d));
+    var pick = function () {
+      var secs = ((Date.now() - self.state.t0) / 1000).toFixed(1).replace('.', ',');
+      self.setState({ phase: 'reveal', elapsed: secs });
+    };
+    var defs = [
+      { h: 'Każdy dom z ceną.', p: 'Lista wolnych lokali z ceną i historią zmian, tak jak wymaga ustawa o jawności cen.' },
+      { h: 'Film z Twojej budowy.', p: 'Nagrywamy dronem i montujemy 60-90 sekund. Kupujący widzi okolicę, las i swój dom, zanim przyjedzie.' },
+      { h: 'Trzy pola i gotowe.', p: 'Kupujący zostawia numer w kilka sekund. Bez dzwonienia do biura i bez szukania maila.' },
+      { h: 'SMS do handlowca od razu.', p: 'W audycie 198 biur sprzedaży 16% nie odpisało na zapytanie wcale. U Ciebie telefon zawibruje, zanim kupujący odłoży swój.' }
+    ];
+    var tourSteps = defs.map(function (t, i) {
+      return { h: t.h, p: t.p, o: i === s.tour ? 1 : 0, tr: i === s.tour ? 'none' : (i < s.tour ? 'translateY(-24px)' : 'translateY(24px)'), bar: i <= s.tour ? '#FFB547' : '#C9D3D4' };
+    });
+    return {
+      introOn: s.intro < 8,
+      introBg: '#12343B',
+      doorO: s.intro >= 7 ? 0 : 1,
+      textOpacity: s.intro >= 7 ? 0 : 1,
+      pukO: s.intro >= 4 ? 0 : 1,
+      pukT: s.intro >= 4 ? 'translateY(-24px)' : 'none',
+      puk1o: s.intro >= 1 ? 1 : 0,
+      puk1t: s.intro >= 1 ? 'none' : 'scale(1.35)',
+      puk2o: s.intro >= 2 ? 1 : 0,
+      puk2t: s.intro >= 2 ? 'none' : 'scale(1.35)',
+      puk3o: s.intro >= 3 ? 1 : 0,
+      puk3t: s.intro >= 3 ? 'none' : 'scale(1.35)',
+      askO: s.intro >= 4 ? 1 : 0,
+      askT: s.intro >= 4 ? 'none' : 'translateY(24px)',
+      ask2O: s.intro >= 5 ? 1 : 0,
+      ask2T: s.intro >= 5 ? 'none' : 'translateY(24px)',
+      knock: s.intro === 1 ? 'fz-k1 .3s ease-in-out 1' : (s.intro === 2 ? 'fz-k2 .3s ease-in-out 1' : (s.intro === 3 ? 'fz-k3 .3s ease-in-out 1' : 'none')),
+      leafTransform: s.intro >= 6 ? 'rotateY(-96deg)' : 'none',
+      doorScale: s.intro >= 7 ? 'scale(14)' : 'none',
+      spill: s.intro >= 6 ? 0.3 : 0,
+      openNow: function () { self.open(); },
+      skipIntro: function () { (self._ts || []).forEach(function (t) { clearTimeout(t); }); self.setState({ intro: 8 }); },
+      heroA: s.intro >= 8 ? 'fz-up .8s .05s both' : 'none',
+      heroB: s.intro >= 8 ? 'fz-up .8s .3s both' : 'none',
+      heroC: s.intro >= 8 ? 'fz-up 1s .55s both' : 'none',
+      personal: !!s.inv,
+      invName: s.inv || 'Brzozy 12',
+      invUpper: (s.inv || 'Brzozy 12').toUpperCase(),
+      invDomain: (s.inv ? s.inv.toLowerCase().replace(/\s+/g, '') : 'brzozy12') + '.pl',
+      tourSteps: tourSteps,
+      scr0: s.tour === 0 ? 1 : 0, scr1: s.tour === 1 ? 1 : 0, scr2: s.tour === 2 ? 1 : 0, scr3: s.tour === 3 ? 1 : 0,
+      smsT: s.tour === 3 ? 'none' : 'translateY(-140px)',
+      showIntro: s.phase === 'intro',
+      showChoose: s.phase === 'choose',
+      showReveal: s.phase === 'reveal',
+      orderA: s.flip ? 2 : 1,
+      orderB: s.flip ? 1 : 2,
+      elapsed: s.elapsed,
+      start: function () { self.setState({ phase: 'choose', t0: Date.now(), flip: Math.random() < 0.5 }); },
+      pick: pick,
+      reset: function () { self.setState({ phase: 'intro' }); },
+      dayNums: dayNums,
+      showForm: !s.sent,
+      showSent: s.sent,
+      submit: function (e) { e.preventDefault(); self.setState({ sent: true }); }
+    };
+  }
+}
+
+__boot(Component);
+</script>
+<script>
+(function(){
+  if (/claude\.ai|claudeusercontent|claude\.site/.test(location.hostname) || location.protocol === 'file:') return;
+  function put(){
+    var box=document.getElementById('fz-film'); if(!box||box.getAttribute('data-done'))return;
+    var id=box.getAttribute('data-yt'); box.setAttribute('data-done','1');
+    var f=document.createElement('iframe');
+    f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&loop=1&playlist='+id+'&controls=0&rel=0&playsinline=1';
+    f.title='Film z inwestycji'; f.allow='autoplay; encrypted-media; picture-in-picture';
+    f.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0;z-index:3';
+    box.appendChild(f);
+  }
+  var t=setInterval(function(){ if(document.getElementById('fz-film')){ put(); clearInterval(t);} },300);
+})();
+</script>
+
+
+</body>
+</html>
