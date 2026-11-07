@@ -17,6 +17,8 @@ input[type=checkbox]{accent-color:#10252A;width:20px;height:20px}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #10252A;outline-offset:3px}
 .fz-tab{grid-template-columns:200px minmax(0,1fr)}
 @media (max-width:640px){.fz-tab{grid-template-columns:minmax(0,1fr)}.fz-tab>div:nth-child(odd){padding-top:18px!important;font-size:18px!important}.fz-tab>div:nth-child(even):not(.fz-price){font-size:21px!important}}
+.fz-video{object-position:50% 60%}
+@media (max-width:700px){.fz-video{object-position:42% 60%}}
 .fz-pan{animation:fz-pan 40s linear infinite alternate}
 @keyframes fz-pan{from{transform:translateX(0)}to{transform:translateX(-37.5%)}}
 @media (prefers-reduced-motion:reduce){.fz-pan{animation:none}}
@@ -70,20 +72,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 <!-- HERO -->
 <section style="position: relative; background: #12343B; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column">
 <!-- film z drona: tu wejdzie prawdziwe nagranie -->
-<div id="fz-film" data-yt="nr-NYsF3Gp8" style="position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #34502F">
-<svg class="fz-pan" aria-hidden="true" width="160%" height="100%" style="position: absolute; left: 0; top: 0; display: block">
-<defs><pattern id="fz-osiedle" width="420" height="300" patternUnits="userSpaceOnUse">
-<rect width="420" height="300" fill="#34502F"></rect>
-<rect x="190" y="0" width="40" height="300" fill="#5E615C"></rect>
-<rect x="30" y="34" width="120" height="76" fill="#3C3F44"></rect><rect x="30" y="70" width="120" height="3" fill="#2B2E32"></rect>
-<rect x="270" y="64" width="120" height="76" fill="#44474C"></rect><rect x="270" y="100" width="120" height="3" fill="#2B2E32"></rect>
-<rect x="30" y="180" width="120" height="76" fill="#44474C"></rect><rect x="30" y="216" width="120" height="3" fill="#2B2E32"></rect>
-<rect x="270" y="210" width="120" height="76" fill="#3C3F44"></rect><rect x="270" y="246" width="120" height="3" fill="#2B2E32"></rect>
-<rect x="150" y="66" width="40" height="12" fill="#8A8C86"></rect><rect x="230" y="96" width="40" height="12" fill="#8A8C86"></rect>
-<circle cx="168" cy="150" r="14" fill="#25401F"></circle><circle cx="400" cy="20" r="16" fill="#25401F"></circle><circle cx="12" cy="150" r="12" fill="#2A4724"></circle><circle cx="250" cy="170" r="13" fill="#25401F"></circle>
-</pattern></defs>
-<rect width="100%" height="100%" fill="url(#fz-osiedle)"></rect>
-</svg>
+<div id="fz-film" style="position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #2A3B3E">
+<video id="fz-video" class="fz-video" poster="hero.jpg" data-src="hero.mp4" data-src-m="hero-m.mp4" muted autoplay loop playsinline preload="auto" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
 </div>
 <div aria-hidden="true" style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(12,38,44,.45) 0%, rgba(12,38,44,0) 18%, rgba(12,38,44,0) 38%, rgba(12,38,44,.72) 68%, rgba(12,38,44,.94) 100%)"></div>
 <div style="position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; padding: 0 24px calc(40px + env(safe-area-inset-bottom, 0px))">
@@ -535,7 +525,7 @@ function kids(node,ctx,out){var c=(node.content||node).childNodes;for(var i=0;i<
 function render(){
   vals=comp.renderVals();
   var next=document.createElement('div');kids(tpl,{},next);
-  morphdom(app,next,{childrenOnly:true,onBeforeElUpdated:function(f){return f.tagName!=='INPUT';},onBeforeNodeDiscarded:function(n){return n.nodeName!=='IFRAME';}});
+  morphdom(app,next,{childrenOnly:true,onBeforeElUpdated:function(f){return f.tagName!=='INPUT'&&f.tagName!=='VIDEO';},onBeforeNodeDiscarded:function(n){return n.nodeName!=='IFRAME';}});
 }
 ['click','submit'].forEach(function(ev){app.addEventListener(ev,function(e){
   var el=e.target.closest('[data-ev-'+ev+']');if(!el||!app.contains(el))return;
@@ -690,32 +680,11 @@ __boot(Component);
 </script>
 <script>
 (function(){
-  if (/claude\.ai|claudeusercontent|claude\.site/.test(location.hostname) || location.protocol === 'file:') return;
-  function put(){
-    var box=document.getElementById('fz-film'); if(!box||box.getAttribute('data-done'))return;
-    var id=box.getAttribute('data-yt'); box.setAttribute('data-done','1');
-    var f=document.createElement('iframe'); f.id='fz-yt';
-    f.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&controls=0&rel=0&playsinline=1&modestbranding=1&iv_load_policy=3&cc_load_policy=0&disablekb=1&fs=0&enablejsapi=1&origin='+encodeURIComponent(location.origin);
-    f.title='Film z inwestycji'; f.allow='autoplay; encrypted-media'; f.tabIndex=-1; f.setAttribute('aria-hidden','true');
-    f.style.cssText='position:absolute;left:50%;top:50%;border:0;pointer-events:none;z-index:1;opacity:0';
-    box.appendChild(f);
-    function fit(){
-      var w=box.clientWidth,h=box.clientHeight,k=1.45,vw,vh;
-      if(w/h>16/9){vw=w*k;vh=vw*9/16;}else{vh=h*k;vw=vh*16/9;}
-      f.style.width=vw+'px';f.style.height=vh+'px';
-      var shift=w<700?-0.52:-0.5;
-      f.style.transform='translate(calc(-50% + '+(w<700?80:0)+'px),'+(shift*100)+'%)';
-    }
-    fit(); window.addEventListener('resize',fit);
-    window.onYouTubeIframeAPIReady=function(){
-      var pl=new YT.Player('fz-yt',{events:{
-        onReady:function(){ pl.mute(); pl.playVideo(); },
-        onStateChange:function(e){ if(e.data===1) f.style.opacity='1'; if(e.data===0){ pl.seekTo(0,true); pl.playVideo(); } }
-      }});
-    };
-    var sc=document.createElement('script'); sc.src='https://www.youtube.com/iframe_api'; document.head.appendChild(sc);
-  }
-  var t=setInterval(function(){ if(document.getElementById('fz-film')){ put(); clearInterval(t);} },300);
+  var t=setInterval(function(){
+    var v=document.getElementById('fz-video'); if(!v) return; clearInterval(t);
+    v.src=window.innerWidth<=900 ? v.getAttribute('data-src-m') : v.getAttribute('data-src');
+    v.muted=true; var p=v.play(); if(p&&p.catch) p.catch(function(){});
+  },100);
 })();
 </script>
 
