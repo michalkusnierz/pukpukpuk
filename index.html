@@ -18,7 +18,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 .fz-tab{grid-template-columns:200px minmax(0,1fr)}
 @media (max-width:640px){.fz-tab{grid-template-columns:minmax(0,1fr)}.fz-tab>div:nth-child(odd){padding-top:18px!important;font-size:18px!important}.fz-tab>div:nth-child(even):not(.fz-price){font-size:21px!important}}
 .fz-video{object-position:50% 60%}
-@media (max-width:700px){.fz-video{object-position:42% 60%}}
+@media (max-width:700px){.fz-video{object-position:42% 60%;top:-80px!important;height:calc(100% + 80px)!important}}
 .fz-pan{animation:fz-pan 40s linear infinite alternate}
 @keyframes fz-pan{from{transform:translateX(0)}to{transform:translateX(-37.5%)}}
 @media (prefers-reduced-motion:reduce){.fz-pan{animation:none}}
