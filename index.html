@@ -564,6 +564,7 @@ class Component extends DCLogic {
     this._ts = [];
     this.run(0);
     this._onScroll = function () {
+      if (self.state.intro < 8 && window.scrollY > 4) { self._skipOnMove(); return; }
       var el = document.getElementById('produkt');
       if (!el) return;
       var r = el.getBoundingClientRect();
@@ -572,6 +573,15 @@ class Component extends DCLogic {
       if (i !== self.state.tour) self.setState({ tour: i });
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._skipOnMove = function () {
+      if (self.state.intro >= 8) return;
+      (self._ts || []).forEach(function (t) { clearTimeout(t); });
+      self.setState({ intro: 8 });
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('wheel', this._skipOnMove, { passive: true });
+    window.addEventListener('touchmove', this._skipOnMove, { passive: true });
+    window.addEventListener('keydown', this._skipOnMove);
   }
   run(from) {
     var self = this;
@@ -591,6 +601,9 @@ class Component extends DCLogic {
   componentWillUnmount() {
     (this._ts || []).forEach(function (t) { clearTimeout(t); });
     window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('wheel', this._skipOnMove);
+    window.removeEventListener('touchmove', this._skipOnMove);
+    window.removeEventListener('keydown', this._skipOnMove);
   }
   renderVals() {
     var s = this.state;
@@ -678,7 +691,7 @@ __boot(Component);
       if(w/h>16/9){vw=w*k;vh=vw*9/16;}else{vh=h*k;vw=vh*16/9;}
       f.style.width=vw+'px';f.style.height=vh+'px';
       var shift=w<700?-0.58:-0.54;
-      f.style.transform='translate(-50%,'+(shift*100)+'%)';
+      f.style.transform='translate(calc(-50% + '+(w<700?80:0)+'px),'+(shift*100)+'%)';
     }
     fit(); window.addEventListener('resize',fit);
     var shown=false;function show(){ if(shown)return; shown=true; setTimeout(function(){f.style.opacity='1';},600); }
