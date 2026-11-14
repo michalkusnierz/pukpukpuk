@@ -41,7 +41,7 @@ a{color:inherit}
 #skip{position:absolute;top:18px;right:18px;min-height:44px;padding:0 14px;background:transparent;border:0;color:#B9C6BE;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer}
 
 /* hero */
-.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;color:#fff;overflow:hidden;background:var(--las)}
+.hero{position:relative;min-height:100vh;min-height:var(--hh,100svh);overflow-anchor:none;display:flex;flex-direction:column;color:#fff;overflow:hidden;background:var(--las)}
 .hero video{position:absolute;left:0;right:0;top:-16%;width:100%;height:116%;object-fit:cover;object-position:50% 100%}
 .hero .shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,21,17,.5) 0%,rgba(13,21,17,0) 22%,rgba(13,21,17,0) 40%,rgba(13,21,17,.75) 72%,rgba(13,21,17,.95) 100%)}
 .hero header{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:20px 0;gap:16px}
@@ -52,8 +52,8 @@ a{color:inherit}
 .facts{margin:32px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
 .facts li{background:rgba(13,21,17,.55);border:1px solid rgba(255,255,255,.25);padding:10px 14px;font-weight:700;font-size:16px}
 .ctas{margin-top:28px;display:flex;flex-wrap:wrap;gap:14px}
-.rise{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease}
-.ready .rise{opacity:1;transform:none}
+.rise{opacity:0;transition:opacity .8s ease}
+.ready .rise{opacity:1}
 .ready .d2{transition-delay:.25s}.ready .d3{transition-delay:.5s}
 
 /* panorama */
@@ -241,6 +241,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 
 <script>
 (function(){
+  var lw=0; function hh(){ if(window.innerWidth===lw) return; lw=window.innerWidth; document.documentElement.style.setProperty('--hh', window.innerHeight+'px'); } hh(); window.addEventListener('resize', hh);
   var intro=document.getElementById('intro'), l1=document.getElementById('l1'), l2=document.getElementById('l2');
   var words=l1.querySelectorAll('.w'), v=document.getElementById('v'), ts=[], done=false;
   v.src = window.innerWidth<=900 ? v.getAttribute('data-src-m') : v.getAttribute('data-src');

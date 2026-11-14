@@ -41,6 +41,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 @keyframes fz-k3{0%,100%{translate:0 0}30%{translate:5px 0}60%{translate:-3px 0}}
 @keyframes fz-k2{0%,100%{translate:0 0}30%{translate:5px 0}60%{translate:-3px 0}}
 @keyframes fz-knock{0%,50%,100%{translate:0 0}12%,62%{translate:4px 0}25%,75%{translate:-3px 0}}
+@keyframes fz-fade{from{opacity:0}to{opacity:1}}
 @keyframes fz-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @keyframes fz-stamp{0%{opacity:0;transform:rotate(-9deg) scale(1.6)}70%{opacity:1;transform:rotate(-9deg) scale(.96)}100%{opacity:1;transform:rotate(-9deg) scale(1)}}
 </style>
@@ -84,7 +85,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 </sc-if>
 
 <!-- HERO -->
-<section style="position: relative; background: #12343B; overflow: hidden; min-height: 100vh; min-height: var(--fz-vh, 100svh); display: flex; flex-direction: column">
+<section style="position: relative; background: #12343B; overflow: hidden; min-height: 100vh; min-height: var(--fz-vh, 100svh); display: flex; flex-direction: column; overflow-anchor: none">
 <!-- film z drona: tu wejdzie prawdziwe nagranie -->
 <div id="fz-film" style="position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #2A3B3E">
 <video id="fz-video" class="fz-video" poster="hero.jpg" data-src="hero.mp4" data-src-m="hero-m.mp4" muted loop playsinline preload="auto" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
@@ -565,8 +566,8 @@ class Component extends DCLogic {
     (this._ts || []).forEach(function (t) { clearTimeout(t); });
     if (this.state.intro < 8) this.setState({ intro: 8 });
     if (window.fzStartFilm) window.fzStartFilm();
-    window.scrollTo(0, 0);
-    setTimeout(function () { window.scrollTo(0, 0); self._lock(false); }, 450);
+    if (window.scrollY < 40) window.scrollTo(0, 0);
+    setTimeout(function () { self._lock(false); }, 450);
   }
   open() {
     if (this.state.intro >= 6) return;
@@ -624,9 +625,9 @@ class Component extends DCLogic {
       spill: s.intro >= 6 ? 0.3 : 0,
       openNow: function () { self.open(); },
       skipIntro: function () { self.finishIntro(); },
-      heroA: s.intro >= 8 && !s.heroDone ? 'fz-up .8s .05s both' : 'none',
-      heroB: s.intro >= 8 && !s.heroDone ? 'fz-up .8s .3s both' : 'none',
-      heroC: s.intro >= 8 && !s.heroDone ? 'fz-up 1s .55s both' : 'none',
+      heroA: s.intro >= 8 && !s.heroDone ? 'fz-fade .8s .05s both' : 'none',
+      heroB: s.intro >= 8 && !s.heroDone ? 'fz-fade .8s .3s both' : 'none',
+      heroC: s.intro >= 8 && !s.heroDone ? 'fz-fade 1s .55s both' : 'none',
       personal: !!s.inv,
       invName: s.inv || 'Brzozy 12',
       invUpper: (s.inv || 'Brzozy 12').toUpperCase(),
