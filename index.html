@@ -31,7 +31,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 @media (max-width:899px){.fz-tour-d{display:none}.fz-tour-m{display:block}}
 @media (max-width:700px){.fz-test-in,.fz-sec{padding:64px 20px}.fz-sec-top{padding-top:64px}.fz-wall{padding:48px 16px 64px}}
 .fz-video{object-position:50% 100%;top:-16%!important;height:116%!important}
-@media (max-width:700px){#fz-film{bottom:auto!important;height:62%}.fz-video{object-position:50% 50%;top:0!important;height:100%!important}#fz-shade{background:linear-gradient(to bottom,rgba(12,38,44,.4) 0%,rgba(12,38,44,0) 14%,rgba(12,38,44,0) 40%,#12343B 62%)!important}}
+@media (max-width:700px){#fz-hero{min-height:0!important}#fz-film{bottom:auto!important;height:128vw}.fz-video{object-position:50% 50%;top:0!important;height:100%!important}#fz-shade{bottom:auto!important;height:128vw;background:linear-gradient(to bottom,rgba(12,38,44,.4) 0%,rgba(12,38,44,0) 14%,rgba(12,38,44,0) 62%,#12343B 100%)!important}#fz-herotxt{margin-top:calc(108vw - 96px)!important;padding-top:0!important}}
 .fz-pan{animation:fz-pan 40s linear infinite alternate}
 @keyframes fz-pan{from{transform:translateX(0)}to{transform:translateX(-37.5%)}}
 @media (prefers-reduced-motion:reduce){.fz-pan{animation:none}}
@@ -85,7 +85,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 </sc-if>
 
 <!-- HERO -->
-<section style="position: relative; background: #12343B; overflow: hidden; min-height: 100vh; min-height: var(--fz-vh, 100svh); display: flex; flex-direction: column; overflow-anchor: none">
+<section id="fz-hero" style="position: relative; background: #12343B; overflow: hidden; min-height: 100vh; min-height: var(--fz-vh, 100svh); display: flex; flex-direction: column; overflow-anchor: none">
 <!-- film z drona: tu wejdzie prawdziwe nagranie -->
 <div id="fz-film" style="position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #2A3B3E">
 <video id="fz-video" class="fz-video" poster="hero.jpg" data-src="hero.mp4" data-src-m="hero-m.mp4" muted loop playsinline preload="auto" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
@@ -101,7 +101,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 </div>
 <a href="#kontakt" style="font-weight: 700; font-size: 16px; color: #FFFFFF">Zadzwoń: 794 016 134</a>
 </header>
-<div style="max-width: 1320px; width: 100%; margin: auto auto 0; padding-top: 40px">
+<div id="fz-herotxt" style="max-width: 1320px; width: 100%; margin: auto auto 0; padding-top: 40px">
 <sc-if value="{{personal}}" hint-placeholder-val="{{false}}"><div style="margin-bottom: 28px; display: inline-block; background: #FFB547; color: #12343B; padding: 8px 14px; font-weight: 800; font-size: 15px">Przygotowane dla: {{invName}}</div></sc-if>
 <h1 style="animation: {{heroA}}; margin: 0; font-weight: 900; font-size: clamp(44px, 9vw, 128px); line-height: 0.9; letter-spacing: -0.045em; color: #FFFFFF"><span style="display: block; color: #7FA3A8">Ty budujesz domy.</span><span style="display: block">My otwieramy</span><span style="display: block">do nich <span style="color: #FFB547">drzwi</span>.</span></h1>
 <div style="animation: {{heroB}}; margin-top: 44px; display: flex; flex-wrap: wrap; gap: 24px 48px; align-items: center; justify-content: space-between">
