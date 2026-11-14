@@ -191,6 +191,47 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 </sc-if>
 </section>
 
+<!-- WOLNE LOKALE: kalkulator i pakiet -->
+<section id="wolne" class="fz-sec" style="background: #FFFFFF">
+<div style="max-width: 1320px; margin: 0 auto">
+<div style="font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: #12343B">Dla inwestycji z wolnymi lokalami</div>
+<h2 class="fz-h2" style="margin-top: 14px; max-width: 900px">Ile kosztuje Cię mieszkanie, które <span style="background: linear-gradient(transparent 62%, #FFB547 62%, #FFB547 92%, transparent 92%)">stoi puste</span>?</h2>
+<p class="fz-lead" style="margin-top: 22px; max-width: 620px; color: #2A3B3E">Każdy niesprzedany lokal to zamrożone pieniądze i odsetki od kredytu. Wpisz liczby ze swojej inwestycji.</p>
+<div class="fz-wl-grid" style="margin-top: 44px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
+<div style="background: #ECEEED; padding: 32px">
+<label for="fz-n" style="display: block; font-weight: 700; font-size: 15px">Wolne lokale</label>
+<input id="fz-n" type="number" min="1" max="2000" value="20" inputmode="numeric" style="margin-top: 8px; width: 100%; box-sizing: border-box; min-height: 54px; padding: 0 14px; border: 2px solid #12343B; background: #FFFFFF; font-family: inherit; font-weight: 800; font-size: 22px; color: #10252A">
+<label for="fz-c" style="display: block; margin-top: 20px; font-weight: 700; font-size: 15px">Średnia cena lokalu, zł</label>
+<input id="fz-c" type="number" min="10000" step="10000" value="650000" inputmode="numeric" style="margin-top: 8px; width: 100%; box-sizing: border-box; min-height: 54px; padding: 0 14px; border: 2px solid #12343B; background: #FFFFFF; font-family: inherit; font-weight: 800; font-size: 22px; color: #10252A">
+<label for="fz-r" style="display: block; margin-top: 20px; font-weight: 700; font-size: 15px">Oprocentowanie kredytu, %</label>
+<input id="fz-r" type="number" min="0" max="30" step="0.5" value="8" inputmode="decimal" style="margin-top: 8px; width: 100%; box-sizing: border-box; min-height: 54px; padding: 0 14px; border: 2px solid #12343B; background: #FFFFFF; font-family: inherit; font-weight: 800; font-size: 22px; color: #10252A">
+<div style="margin-top: 28px; padding-top: 22px; border-top: 2px solid #12343B">
+<div style="font-weight: 900; font-size: clamp(40px, 5vw, 64px); line-height: 1; letter-spacing: -.04em; color: #12343B">{{wlKoszt}} zł</div>
+<p style="margin: 10px 0 0; font-size: 16px; line-height: 1.45">tyle co miesiąc kosztuje sam kapitał zamrożony w wolnych lokalach. Jeden dzień to {{wlDzien}} zł.</p>
+<p style="margin: 12px 0 0; font-size: 13px; line-height: 1.45; color: #4A5A5D">Uproszczony rachunek: wartość wolnych lokali × oprocentowanie / 12. Bez podatków, opłat i kosztów utrzymania budynku.</p>
+</div>
+</div>
+<div style="background: #12343B; color: #FFFFFF; padding: 32px; display: flex; flex-direction: column">
+<div style="font-weight: 900; font-size: clamp(28px, 3vw, 40px); line-height: 1; letter-spacing: -.03em">Pakiet na wolny lokal</div>
+<p style="margin: 14px 0 0; font-size: 16px; line-height: 1.5; color: #D5E3E4">Bierzemy mieszkanie, które sprzedaje się najsłabiej, i pokazujemy je tak, żeby kupujący chciał je zobaczyć na żywo.</p>
+<ul style="margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; font-size: 16px; line-height: 1.45">
+<li style="padding-left: 22px; position: relative"><span aria-hidden="true" style="position: absolute; left: 0; top: 8px; width: 10px; height: 10px; background: #FFB547"></span>Wirtualne umeblowanie pustego lokalu z Twoich zdjęć albo wizualizacji, 6 ujęć</li>
+<li style="padding-left: 22px; position: relative"><span aria-hidden="true" style="position: absolute; left: 0; top: 8px; width: 10px; height: 10px; background: #FFB547"></span>Pionowy film 20–30 s do reklam na Facebooku i Instagramie</li>
+<li style="padding-left: 22px; position: relative"><span aria-hidden="true" style="position: absolute; left: 0; top: 8px; width: 10px; height: 10px; background: #FFB547"></span>Nowy opis lokalu pisany pod kupującego, gotowy do wklejenia na Otodom i Twoją stronę</li>
+<li style="padding-left: 22px; position: relative"><span aria-hidden="true" style="position: absolute; left: 0; top: 8px; width: 10px; height: 10px; background: #FFB547"></span>Bez przebudowy Twojej strony i bez dostępu do Twoich kont</li>
+</ul>
+<div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid #2F5A62">
+<div style="font-weight: 900; font-size: clamp(36px, 4vw, 52px); line-height: 1; letter-spacing: -.04em; color: #FFB547">1 990 zł netto</div>
+<p style="margin: 8px 0 0; font-size: 15px; line-height: 1.45; color: #D5E3E4">za pierwszy lokal, każdy kolejny z tej samej inwestycji 790 zł netto. Gotowe w 5 dni roboczych. Lot dronem nad inwestycją w mazowieckim dorzucam na życzenie.</p>
+</div>
+<div style="margin-top: auto; padding-top: 28px">
+<a href="#kontakt" style="display: inline-flex; align-items: center; min-height: 56px; padding: 0 30px; background: #FFB547; color: #10252A; font-weight: 800; font-size: 17px; text-decoration: none">Wyślij adres inwestycji</a>
+<p style="margin: 12px 0 0; font-size: 14px; line-height: 1.45; color: #D5E3E4">Jedno ujęcie z Twojego lokalu pokażę za darmo, ze znakiem wodnym. Płacisz, jeśli chcesz resztę.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 <!-- PRODUKT: telefon przy przewijaniu -->
 <section id="produkt" class="fz-tour-d" style="position: relative; height: 420vh; background: #12343B">
 <div style="position: sticky; top: 0; height: 100vh; padding: 0 24px; box-sizing: border-box; display: flex; align-items: center; overflow: hidden">
@@ -436,6 +477,8 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #1025
 <div class="fz-price" style="padding: 10px 4px 2px; border-bottom: 2px solid #10252A; font-weight: 800; font-size: clamp(40px, 5vw, 64px); line-height: 1; color: #12343B">OD 5 000 ZŁ NETTO</div>
 <div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Z dronem</div>
 <div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 26px; line-height: 1.15"><span style="font-size: 40px; color: #12343B">OD 9 000 ZŁ NETTO</span><br>NAGRANIE NA BUDOWIE, FILM 60-90 S, KLIPY PIONOWE DO REKLAM</div>
+<div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Wolny lokal</div>
+<div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 26px; line-height: 1.15">PAKIET DLA JEDNEGO LOKALU 1 990 ZŁ NETTO, KAŻDY KOLEJNY 790 ZŁ</div>
 <div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Poza zakresem</div>
 <div style="padding: 16px 4px 6px; border-bottom: 2px solid #10252A; font-weight: 700; font-size: 26px; line-height: 1.15">PLIK DO DANE.GOV.PL, WYBIERARKA NA BRYLE, CRM. WYCENA OSOBNO</div>
 <div style="padding: 16px 0 6px; font-weight: 800; font-size: 30px; line-height: 1; text-transform: uppercase">Gwarancja</div>
@@ -533,7 +576,7 @@ class Component extends DCLogic {
     } catch (e) {}
     slug = String(slug).toLowerCase().replace(/[^a-z0-9ąćęłńóśźż-]/g, '').slice(0, 60);
     var name = slug ? slug.split('-').filter(Boolean).map(function (w) { return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ') : '';
-    this.state = { phase: 'intro', t0: 0, elapsed: '0', flip: false, sent: false, intro: 0, tour: 0, inv: name };
+    this.state = { phase: 'intro', t0: 0, elapsed: '0', flip: false, sent: false, intro: 0, tour: 0, inv: name, wlN: 20, wlC: 650000, wlR: 8 };
   }
   componentDidMount() {
     var self = this;
@@ -549,6 +592,15 @@ class Component extends DCLogic {
       if (i !== self.state.tour) self.setState({ tour: i });
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onCalc = function (e) {
+      var id = e.target && e.target.id;
+      var map = { 'fz-n': 'wlN', 'fz-c': 'wlC', 'fz-r': 'wlR' };
+      if (!map[id]) return;
+      var v = parseFloat(String(e.target.value).replace(',', '.'));
+      var o = {}; o[map[id]] = isFinite(v) && v > 0 ? v : 0;
+      self.setState(o);
+    };
+    document.addEventListener('input', this._onCalc);
     this._lock = function (on) {
       var v = on ? 'hidden' : '';
       document.documentElement.style.overflow = v;
@@ -598,6 +650,8 @@ class Component extends DCLogic {
   renderVals() {
     var s = this.state;
     var self = this;
+    var fmt = function (n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0'); };
+    var wlMies = s.wlN * s.wlC * (s.wlR / 100) / 12;
     var dayNums = [];
     for (var d = 1; d <= 14; d++) dayNums.push(String(d));
     var pick = function () {
@@ -644,6 +698,8 @@ class Component extends DCLogic {
       invUpper: (s.inv || 'Brzozy 12').toUpperCase(),
       invDomain: (s.inv ? s.inv.toLowerCase().replace(/\s+/g, '') : 'brzozy12') + '.pl',
       tourSteps: tourSteps,
+      wlKoszt: fmt(wlMies),
+      wlDzien: fmt(wlMies * 12 / 365),
       scr0: s.tour === 0 ? 1 : 0, scr1: s.tour === 1 ? 1 : 0, scr2: s.tour === 2 ? 1 : 0, scr3: s.tour === 3 ? 1 : 0,
       smsT: s.tour === 3 ? 'none' : 'translateY(-140px)',
       showIntro: s.phase === 'intro',
