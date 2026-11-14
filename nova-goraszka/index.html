@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Nova Góraszka · dom, którego szukasz (projekt 10 Format)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&amp;display=swap">
+<style>
+:root{--las:#16231C;--las2:#22352A;--jasne:#F2F4F1;--bursztyn:#F0A43A;--tekst:#14201A;--szary:#5B6A61}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Schibsted Grotesk',system-ui,sans-serif;color:var(--tekst);background:var(--jasne);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.h2{margin:0;font-weight:900;font-size:clamp(34px,5vw,68px);line-height:.95;letter-spacing:-.045em;text-wrap:balance}
+.lead{margin:20px 0 0;font-size:19px;line-height:1.5;max-width:620px}
+.sec{padding:104px 0}
+.btn{display:inline-flex;align-items:center;min-height:56px;padding:0 28px;font-weight:800;font-size:17px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
+.btn-a{background:var(--bursztyn);color:var(--las)}
+.btn-b{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+
+/* pasek projektu */
+.ribbon{position:relative;z-index:30;background:var(--bursztyn);color:var(--las);font-size:14px;line-height:1.35;padding:9px 24px}
+.ribbon .wrap{display:flex;gap:4px 20px;flex-wrap:wrap;justify-content:space-between;padding:0}
+.ribbon a{font-weight:800}
+
+/* notatki dla dewelopera */
+.note{display:inline-flex;gap:10px;align-items:flex-start;background:#FFF3DF;border-left:4px solid var(--bursztyn);padding:12px 16px;font-size:15px;line-height:1.45;color:#3B2A10;max-width:560px}
+.note b{white-space:nowrap}
+
+/* intro */
+#intro{position:fixed;inset:0;z-index:100;background:#0D1511;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px;transition:opacity .8s ease,visibility .8s}
+#intro.off{opacity:0;visibility:hidden}
+#intro .lines{max-width:900px;width:100%}
+#intro .l{font-weight:900;font-size:clamp(34px,6.4vw,92px);line-height:1;letter-spacing:-.045em;opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+#intro .l.on{opacity:1;transform:none}
+#intro .l2{color:var(--bursztyn);margin-top:14px}
+#intro .w{display:inline-block;opacity:0;transition:opacity .25s ease}
+#intro .w.on{opacity:1}
+#skip{position:absolute;top:18px;right:18px;min-height:44px;padding:0 14px;background:transparent;border:0;color:#B9C6BE;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;color:#fff;overflow:hidden;background:var(--las)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,21,17,.5) 0%,rgba(13,21,17,0) 22%,rgba(13,21,17,0) 40%,rgba(13,21,17,.75) 72%,rgba(13,21,17,.95) 100%)}
+.hero header{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:20px 0;gap:16px}
+.logo{font-weight:900;font-size:20px;letter-spacing:-.02em}
+.hero .in{position:relative;z-index:2;margin-top:auto;padding-bottom:calc(44px + env(safe-area-inset-bottom,0px))}
+.hero h1{margin:0;font-weight:900;font-size:clamp(46px,9vw,140px);line-height:.88;letter-spacing:-.05em}
+.hero h1 span{display:block;color:var(--bursztyn)}
+.facts{margin:32px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.facts li{background:rgba(13,21,17,.55);backdrop-filter:none;border:1px solid rgba(255,255,255,.25);padding:10px 14px;font-weight:700;font-size:16px}
+.ctas{margin-top:28px;display:flex;flex-wrap:wrap;gap:14px}
+.rise{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease}
+.ready .rise{opacity:1;transform:none}
+.ready .d2{transition-delay:.25s}.ready .d3{transition-delay:.5s}
+
+/* panorama */
+.pano{position:relative;color:#fff;background:var(--las)}
+.pano img{display:block;width:100%;height:min(78vh,760px);object-fit:cover}
+.pano .cap{position:absolute;left:0;right:0;bottom:0;padding:120px 0 40px;background:linear-gradient(to bottom,rgba(13,21,17,0),rgba(13,21,17,.9))}
+.pano .cap p{margin:14px 0 0;font-size:18px;line-height:1.5;max-width:640px;color:#DCE4DF}
+
+/* dom */
+.grid{margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;background:#CFD6D1;border:2px solid #CFD6D1}
+.grid div{background:#fff;padding:26px 22px}
+.grid b{display:block;font-weight:900;font-size:clamp(30px,3.4vw,46px);letter-spacing:-.04em;line-height:1}
+.grid span{display:block;margin-top:8px;font-size:15px;line-height:1.4;color:var(--szary)}
+
+/* wnętrze */
+.room{margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.room .pane{position:relative;aspect-ratio:4/3;background:#E3E7E3;overflow:hidden;display:flex;align-items:flex-end;padding:20px}
+.room .pane .tag{position:relative;z-index:2;background:var(--las);color:#fff;font-weight:800;font-size:14px;padding:6px 10px}
+.room .empty{background:linear-gradient(180deg,#EDEFEB 0 62%,#D9D2C4 62% 100%)}
+.room .empty:before{content:"";position:absolute;left:12%;top:14%;width:34%;height:38%;background:#CFE0E8;border:6px solid #fff}
+.room .full{background:linear-gradient(180deg,#EDEFEB 0 62%,#C9B79B 62% 100%)}
+.room .full:before{content:"";position:absolute;left:12%;top:14%;width:34%;height:38%;background:#CFE0E8;border:6px solid #fff}
+.room .full i{position:absolute;display:block}
+.room .full .sofa{left:42%;bottom:20%;width:44%;height:16%;background:var(--las2);border-radius:8px 8px 4px 4px}
+.room .full .sofa2{left:44%;bottom:33%;width:40%;height:9%;background:#2E4639;border-radius:8px}
+.room .full .rug{left:30%;bottom:8%;width:56%;height:8%;background:var(--bursztyn);opacity:.65;border-radius:50%}
+.room .full .lamp{left:84%;bottom:20%;width:3px;height:40%;background:var(--las)}
+.room .full .lamp2{left:80%;top:30%;width:11%;height:8%;background:var(--bursztyn);border-radius:6px 6px 0 0}
+.room .full .plant{left:16%;bottom:20%;width:9%;height:22%;background:#3F6B4E;border-radius:50% 50% 8px 8px}
+
+/* okolica */
+.near{margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.near div{border-top:3px solid var(--las);padding-top:16px}
+.near b{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em}
+.near span{display:block;margin-top:6px;font-size:16px;line-height:1.45;color:var(--szary)}
+
+/* domy */
+.sale{background:var(--las);color:#fff}
+.sale .big{font-weight:900;font-size:clamp(64px,12vw,180px);line-height:.85;letter-spacing:-.06em;color:var(--bursztyn)}
+.sale .row{display:flex;flex-wrap:wrap;gap:24px 64px;align-items:flex-end;justify-content:space-between}
+.sale p{color:#DCE4DF}
+
+/* galeria */
+.gal{display:grid;grid-template-columns:2fr 1fr;gap:6px;background:var(--las)}
+.gal img{display:block;width:100%;height:100%;object-fit:cover;min-height:260px}
+.gal .col{display:grid;gap:6px}
+
+/* kontakt kupującego */
+.visit{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px 48px;align-items:start}
+.visit dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:12px 24px;font-size:18px}
+.visit dt{font-weight:800}
+.visit dd{margin:0}
+
+/* dla dewelopera */
+.dev{background:#0D1511;color:#fff;border-top:6px solid var(--bursztyn)}
+.dev ul{margin:28px 0 0;padding:0;list-style:none;display:grid;gap:12px;font-size:18px;line-height:1.45;max-width:680px}
+.dev li{padding-left:24px;position:relative}
+.dev li:before{content:"";position:absolute;left:0;top:9px;width:11px;height:11px;background:var(--bursztyn)}
+.dev .price{margin-top:36px;font-weight:900;font-size:clamp(40px,5vw,64px);letter-spacing:-.04em;line-height:1;color:var(--bursztyn)}
+.dev .price small{display:block;margin-top:10px;font-size:17px;font-weight:500;letter-spacing:0;color:#C9D4CD}
+footer{background:#0D1511;color:#8FA197;font-size:14px;padding:24px 0 calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid #22352A}
+footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+@media (max-width:700px){.sec{padding:64px 0}.gal{grid-template-columns:1fr}.hide-m{display:none}.lead{font-size:17px}.pano img{height:62vh}}
+@media (prefers-reduced-motion:reduce){#intro .l,#intro .w,.rise{transition:none}}
+</style>
+</head>
+<body>
+
+<div id="intro" aria-hidden="true">
+<button id="skip" type="button">Pomiń</button>
+<div class="lines">
+<div class="l l1" id="l1"><span class="w">Szukam</span> <span class="w">domu</span> <span class="w">pod</span> <span class="w">Warszawą.</span></div>
+<div class="l l2" id="l2">Znajdę coś?</div>
+</div>
+</div>
+
+<div class="ribbon"><div class="wrap"><span>Projekt poglądowy 10 Format dla Gomiko Capital. To nie jest oficjalna strona inwestycji.</span><a href="#dla-dewelopera">Dla dewelopera</a></div></div>
+
+<section class="hero" id="hero">
+<video id="v" poster="../hero.jpg" data-src="../hero.mp4" data-src-m="../hero-m.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
+<div class="shade"></div>
+<div class="wrap" style="width:100%;flex:1;display:flex;flex-direction:column">
+<header><div class="logo">NOVA GÓRASZKA</div><a href="#odwiedz" style="font-weight:700">Umów oglądanie</a></header>
+<div class="in">
+<h1 class="rise">Nova Góraszka.<span>Dom, którego szukasz.</span></h1>
+<ul class="facts rise d2">
+<li>3 km od granicy Warszawy</li>
+<li>148 m², 5 pokoi</li>
+<li>od 798 000 zł</li>
+</ul>
+<div class="ctas rise d3"><a class="btn btn-a" href="#domy">Zobacz wolne domy</a><a class="btn btn-b" href="#odwiedz">Umów oglądanie</a></div>
+</div>
+</div>
+</section>
+
+<section class="pano">
+<img src="panorama.jpg" alt="Osiedle Nova Góraszka z lotu ptaka, na horyzoncie centrum Warszawy" loading="lazy">
+<div class="cap"><div class="wrap">
+<h2 class="h2">Na horyzoncie widać Warszawę.</h2>
+<p>Do granicy miasta są 3 km. Obok Trasa Lubelska i Tranzytowa Obwodnica Warszawy, a stąd szybko na A2 i S17. Pracujesz w mieście, a po powrocie masz las za płotem.</p>
+</div></div>
+</section>
+
+<section class="sec">
+<div class="wrap">
+<h2 class="h2">Cały dom dla Ciebie, nie piętro w bloku.</h2>
+<p class="lead">32 domy w zabudowie bliźniaczej, każdy na dwóch kondygnacjach. Kameralnie, z sąsiadem za ścianą, a nie nad głową.</p>
+<div class="grid">
+<div><b>148 m²</b><span>powierzchni na 2 kondygnacjach</span></div>
+<div><b>5 pokoi</b><span>miejsce na sypialnie dla całej rodziny i gabinet</span></div>
+<div><b>Garaż</b><span>w bryle domu, plus miejsce postojowe przed nim</span></div>
+<div><b>Pompa ciepła</b><span>ciepło i woda bez gazu i komina, ogrzewanie podłogowe</span></div>
+</div>
+</div>
+</section>
+
+<section class="sec" style="padding-top:0">
+<div class="wrap">
+<h2 class="h2">Puste ściany nie sprzedają.</h2>
+<p class="lead">Kupujący nie widzi siebie w gołym wnętrzu. Na stronie każdy wolny dom pokazujemy już umeblowany, w świetle i z życiem w środku.</p>
+<div class="room">
+<div class="pane empty"><span class="tag">Tak widzi dom kupujący dziś</span></div>
+<div class="pane full"><i class="rug"></i><i class="sofa2"></i><i class="sofa"></i><i class="plant"></i><i class="lamp"></i><i class="lamp2"></i><span class="tag">Tak zobaczy go na tej stronie</span></div>
+</div>
+<div style="margin-top:20px"><span class="note"><b>Notatka 10 Format:</b> tu wejdą wirtualnie umeblowane wnętrza zrobione z Waszych zdjęć lub wizualizacji. Szkic obok pokazuje sam pomysł.</span></div>
+</div>
+</section>
+
+<section class="sec" style="padding-top:0">
+<div class="wrap">
+<h2 class="h2">Weekend bez wyjeżdżania z okolicy.</h2>
+<div class="near">
+<div><b>Single-tracki w sosnowym lesie</b><span>rower prosto spod domu</span></div>
+<div><b>Wake-park nad Świdrem</b><span>lato na wodzie, bez korków nad morze</span></div>
+<div><b>Majaland</b><span>park rozrywki dla dzieci tuż obok</span></div>
+<div><b>Centrum Handlowe Projekt Góraszka</b><span>zakupy na co dzień bez jazdy do miasta</span></div>
+<div><b>Przystanek Stefanówka 01</b><span>1,1 km od osiedla</span></div>
+</div>
+</div>
+</section>
+
+<section class="sec sale" id="domy">
+<div class="wrap">
+<div class="row">
+<div><div class="big">Gotowe.</div><h2 class="h2" style="margin-top:12px">Wolne domy do odbioru od ręki.</h2></div>
+<div><p class="lead" style="margin:0">Ceny od 798 000 zł, standard deweloperski. Osiedle jest już zbudowane, więc na klucze nie czekasz latami.</p><div style="margin-top:24px"><a class="btn btn-a" href="#odwiedz">Umów oglądanie</a></div></div>
+</div>
+<div style="margin-top:36px"><span class="note"><b>Notatka 10 Format:</b> tu wejdzie tabela wszystkich wolnych domów z ceną i historią zmian, zgodnie z ustawą o jawności cen. Liczbę wolnych domów wpiszemy z Waszej aktualnej tabeli, bo portale podają różne dane.</span></div>
+</div>
+</section>
+
+<section class="gal" aria-label="Zdjęcia osiedla z drona">
+<img src="zachod.jpg" alt="Domy Nova Góraszka o zachodzie słońca">
+<div class="col"><img src="domy.jpg" alt="Szeregi domów z ogródkami"><img src="ulica.jpg" alt="Ulica osiedla z góry"></div>
+</section>
+
+<section class="sec" id="odwiedz">
+<div class="wrap visit">
+<div><h2 class="h2">Przyjedź i wejdź do środka.</h2><p class="lead">Zobacz dom, ogród i las na żywo. Na miejscu dostaniesz rzuty i aktualne ceny.</p></div>
+<dl>
+<dt>Biuro sprzedaży</dt><dd>Góraszka, ul. Południowa</dd>
+<dt>Godziny</dt><dd>poniedziałek–piątek, 9:00–17:00</dd>
+<dt>Deweloper</dt><dd>Gomiko Capital</dd>
+</dl>
+</div>
+</section>
+
+<section class="sec dev" id="dla-dewelopera">
+<div class="wrap">
+<div style="font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--bursztyn)">Dla Gomiko Capital</div>
+<h2 class="h2" style="margin-top:14px;max-width:900px">Tak może wyglądać strona Waszych wolnych domów w Góraszce.</h2>
+<p class="lead" style="color:#C9D4CD">Film na górze nagrałem nad osiedlem. Resztę złożyłem z informacji, które już są w ogłoszeniach. Waszej obecnej strony nie ruszam i nie potrzebuję dostępu do żadnych kont.</p>
+<ul>
+<li>Wirtualnie umeblowane wnętrza z Waszych zdjęć albo wizualizacji</li>
+<li>Tabela wolnych domów z ceną i historią zmian</li>
+<li>Formularz, który od razu wysyła SMS do handlowca</li>
+<li>Osobny link do ogłoszeń i do wysyłania klientom</li>
+</ul>
+<div class="price">1 990 zł netto<small>w Black Week do 30 listopada, potem 2 490 zł. Gotowe w 5 dni roboczych.</small></div>
+<div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px"><a class="btn btn-a" href="tel:+48794016134">Zadzwoń: 794 016 134</a><a class="btn btn-b" href="../#kontakt">Zostaw numer</a></div>
+</div>
+</section>
+
+<footer><div class="wrap"><span>Projekt poglądowy: 10 Format, Michał Kuśnierz · tenformat@gmail.com</span><span>Dane o inwestycji z ogłoszeń publicznych (rynekpierwotny.pl, otodom.pl), listopad 2026</span></div></footer>
+
+<script>
+(function(){
+  var intro=document.getElementById('intro'), l1=document.getElementById('l1'), l2=document.getElementById('l2');
+  var words=l1.querySelectorAll('.w'), v=document.getElementById('v'), ts=[], done=false;
+  v.src = window.innerWidth<=900 ? v.getAttribute('data-src-m') : v.getAttribute('data-src');
+  v.load();
+  function finish(){
+    if(done) return; done=true; ts.forEach(clearTimeout);
+    intro.classList.add('off'); document.body.style.overflow='';
+    var p=v.play(); if(p&&p.catch) p.catch(function(){});
+    setTimeout(function(){ document.getElementById('hero').classList.add('ready'); },250);
+  }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ finish(); return; }
+  document.body.style.overflow='hidden';
+  l1.classList.add('on');
+  words.forEach(function(w,i){ ts.push(setTimeout(function(){ w.classList.add('on'); }, 300+i*260)); });
+  ts.push(setTimeout(function(){ l2.classList.add('on'); }, 1900));
+  ts.push(setTimeout(finish, 3600));
+  document.getElementById('skip').addEventListener('click', finish);
+  ['wheel','touchmove','keydown'].forEach(function(e){ window.addEventListener(e, function(){ if(!done) finish(); }, {passive:true}); });
+})();
+</script>
+</body>
+</html>
