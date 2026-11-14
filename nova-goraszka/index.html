@@ -241,7 +241,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 
 <script>
 (function(){
-  var lw=0; function hh(){ if(window.innerWidth===lw) return; lw=window.innerWidth; document.documentElement.style.setProperty('--hh', window.innerHeight+'px'); } hh(); window.addEventListener('resize', hh);
+  var lw=0; function hh(){ if(window.innerWidth===lw) return; lw=window.innerWidth; document.documentElement.style.setProperty('--hh', window.innerHeight+'px'); } hh(); window.addEventListener('resize', hh); window.addEventListener('orientationchange', function(){ lw=0; setTimeout(hh,300); });
   var intro=document.getElementById('intro'), l1=document.getElementById('l1'), l2=document.getElementById('l2');
   var words=l1.querySelectorAll('.w'), v=document.getElementById('v'), ts=[], done=false;
   v.src = window.innerWidth<=900 ? v.getAttribute('data-src-m') : v.getAttribute('data-src');

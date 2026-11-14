@@ -672,6 +672,7 @@ __boot(Component);
   var lastW=0;
   function setVh(){ if(window.innerWidth===lastW) return; lastW=window.innerWidth; document.documentElement.style.setProperty('--fz-vh', window.innerHeight+'px'); }
   setVh(); window.addEventListener('resize', setVh);
+  window.addEventListener('orientationchange', function(){ lastW = 0; setTimeout(setVh, 300); });
   window.addEventListener('orientationchange', function(){ lastW=0; setTimeout(setVh,300); });
 })();
 (function(){
