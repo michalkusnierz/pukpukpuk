@@ -536,10 +536,9 @@ class Component extends DCLogic {
     };
     window.addEventListener('scroll', onSt, { passive: true }); onSt();
     this._heroT = setInterval(function () { if (self.state.intro >= 8) { clearInterval(self._heroT); setTimeout(function () { self.setState({ heroDone: true }); }, 1800); } }, 200);
-    this._lock = function (on) {
-      var v = on ? 'hidden' : '';
-      document.documentElement.style.overflow = v;
-      document.body.style.overflow = v;
+    this._lock = function () {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
     };
     this._lock(true);
     this._skipOnMove = function (e) {
@@ -671,9 +670,8 @@ __boot(Component);
 (function(){
   var lastW=0;
   function setVh(){ if(window.innerWidth===lastW) return; lastW=window.innerWidth; document.documentElement.style.setProperty('--fz-vh', window.innerHeight+'px'); }
-  setVh(); window.addEventListener('resize', setVh);
-  window.addEventListener('orientationchange', function(){ lastW = 0; setTimeout(setVh, 300); });
-  window.addEventListener('orientationchange', function(){ lastW=0; setTimeout(setVh,300); });
+  setVh();
+  window.addEventListener('orientationchange', function(){ lastW = 0; setTimeout(setVh, 400); });
 })();
 (function(){
   var started=false;
