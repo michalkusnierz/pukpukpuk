@@ -113,6 +113,7 @@ a{color:inherit}
 .dev li{padding-left:24px;position:relative}
 .dev li:before{content:"";position:absolute;left:0;top:9px;width:11px;height:11px;background:var(--bursztyn)}
 .dev .price{margin-top:36px;font-weight:900;font-size:clamp(40px,5vw,64px);letter-spacing:-.04em;line-height:1;color:var(--bursztyn)}
+.dev .prices{margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px 48px}.dev .prices .price{margin-top:0}
 .dev .price small{display:block;margin-top:10px;font-size:17px;font-weight:500;letter-spacing:0;color:#C9D4CD}
 footer{background:#0D1511;color:#8FA197;font-size:14px;padding:24px 0 calc(24px + env(safe-area-inset-bottom,0px));border-top:1px solid #22352A}
 footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
@@ -225,14 +226,17 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-betw
 <div class="wrap">
 <div style="font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--bursztyn)">Dla Gomiko Capital</div>
 <h2 class="h2" style="margin-top:14px;max-width:900px">Tak może wyglądać strona Waszych wolnych domów w Góraszce.</h2>
-<p class="lead" style="color:#C9D4CD">Film na górze nagrałem nad osiedlem. Resztę złożyłem z informacji, które już są w ogłoszeniach. Waszej obecnej strony nie ruszam i nie potrzebuję dostępu do żadnych kont.</p>
+<p class="lead" style="color:#C9D4CD">Film na górze nagrałem nad osiedlem dronem. Wchodzi w wersję z filmem. Resztę złożyłem z informacji, które już są w ogłoszeniach. Waszej obecnej strony nie ruszam i nie potrzebuję dostępu do żadnych kont.</p>
 <ul>
 <li>Wirtualnie umeblowane wnętrza z Waszych zdjęć albo wizualizacji</li>
 <li>Tabela wolnych domów z ceną i historią zmian</li>
 <li>Formularz, który od razu wysyła SMS do handlowca</li>
 <li>Osobny link do ogłoszeń i do wysyłania klientom</li>
 </ul>
-<div class="price">1 990 zł netto<small>w Black Week do 30 listopada, potem 2 490 zł. Gotowe w 5 dni roboczych.</small></div>
+<div class="prices">
+<div class="price">1 990 zł netto<small>strona z wirtualnym umeblowaniem, bez filmu. Cena w Black Week do 30 listopada, potem 2 490 zł. Gotowe w 5 dni roboczych.</small></div>
+<div class="price">3 990 zł netto<small>strona taka jak ta, z filmem z drona nagranym nad Waszym osiedlem. Nagranie na miejscu w województwie mazowieckim.</small></div>
+</div>
 <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:14px"><a class="btn btn-a" href="tel:+48794016134">Zadzwoń: 794 016 134</a><a class="btn btn-b" href="../#kontakt">Zostaw numer</a></div>
 </div>
 </section>
